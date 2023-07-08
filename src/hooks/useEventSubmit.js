@@ -35,7 +35,7 @@ const useEventSubmit = (id, data) => {
     console.log(data);
     console.log("imageFile", imageFile);
     console.log("imageUrl", imageUrl);
-    co;
+
     const {
       title,
       description,
