@@ -7,11 +7,7 @@ import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { SidebarContext } from "context/SidebarContext";
-import AttributeServices from "services/AttributeServices";
-import EventServices from "services/CategoryServices";
-import CouponServices from "services/CouponServices";
-import CurrencyServices from "services/CurrencyServices";
-import CustomerServices from "services/CustomerServices";
+
 import ProductServices from "services/ProductServices";
 import SettingServices from "services/SettingServices";
 import { notifyError, notifySuccess } from "utils/toast";
@@ -129,47 +125,7 @@ const useFilter = (data) => {
       };
       return newObj;
     });
-    if (location.pathname === "/dashboard") {
-      const orderPending = services?.filter(
-        (statusP) => statusP.status === "Pending"
-      );
-      setPending(orderPending);
-      const orderProcessing = services?.filter(
-        (statusO) => statusO.status === "Processing"
-      );
-      setProcessing(orderProcessing);
-      const orderDelivered = services?.filter(
-        (statusD) => statusD.status === "Delivered"
-      );
-      setDelivered(orderDelivered);
-      //daily total order calculation
-      const todayServices = services?.filter((order) =>
-        dayjs(order.createdAt).isToday()
-      );
-      const todayOrder = todayServices?.reduce(
-        (preValue, currentValue) => preValue + currentValue.total,
-        0
-      );
-      setTodayOrder(todayOrder);
-      //monthly order calculation
-      const monthlyServices = services?.filter((order) =>
-        dayjs(order.createdAt).isBetween(
-          new Date().setDate(new Date().getDate() - 30),
-          new Date()
-        )
-      );
-      const monthlyOrder = monthlyServices?.reduce(
-        (preValue, currentValue) => preValue + currentValue.total,
-        0
-      );
-      setMonthlyOrder(monthlyOrder);
-      //total order calculation
-      const totalOrder = services?.reduce(
-        (preValue, currentValue) => preValue + currentValue.total,
-        0
-      );
-      setTotalOrder(totalOrder);
-    }
+
     //products filtering
     if (filter) {
       services = services.filter((item) => item.parent === filter);
@@ -417,45 +373,7 @@ const useFilter = (data) => {
             };
           });
         }
-        if (location.pathname === "/attributes") {
-          data = text.map((value) => {
-            return {
-              _id: value._id,
-              status: value.status,
-              title: value.title,
-              name: value.name,
-              variants: value.variants,
-              option: value.option,
-              type: value.type,
-            };
-          });
-        }
 
-        if (location.pathname === "/coupons") {
-          data = text.map((value) => {
-            return {
-              title: value.title,
-              couponCode: value.couponCode,
-              endTime: value.endTime,
-              discountPercentage: value.discountPercentage,
-              minimumAmount: value.minimumAmount,
-              productType: value.productType,
-              logo: value.logo,
-              discountType: value.discountType,
-              status: value.status,
-            };
-          });
-        }
-        if (location.pathname === "/customers") {
-          data = text.map((value) => {
-            return {
-              name: value.name,
-              email: value.email,
-              password: value.password,
-              phone: value.phone,
-            };
-          });
-        }
         setSelectedFile(data);
       };
     } else if (file && file.type === "text/csv") {
@@ -482,48 +400,7 @@ const useFilter = (data) => {
             };
           });
         }
-        if (location.pathname === "/attributes") {
-          data = json.map((value) => {
-            return {
-              status: value.status,
-              title: JSON.parse(value.title),
-              name: JSON.parse(value.name),
-              variants: JSON.parse(value.variants),
-              option: value.option,
-              type: value.type,
-            };
-          });
-        }
 
-        if (location.pathname === "/coupons") {
-          data = json.map((value) => {
-            return {
-              title: JSON.parse(value.title),
-              couponCode: value.couponCode,
-              endTime: value.endTime,
-              discountPercentage: value.discountPercentage
-                ? JSON.parse(value.discountPercentage)
-                : 0,
-              minimumAmount: value.minimumAmount
-                ? JSON.parse(value.minimumAmount)
-                : 0,
-              productType: value.productType,
-              logo: value.logo,
-              // discountType: JSON.parse(value.discountType),
-              status: value.status,
-            };
-          });
-        }
-        if (location.pathname === "/customers") {
-          data = json.map((value) => {
-            return {
-              name: value.name,
-              email: value.email,
-              password: value.password,
-              phone: value.phone,
-            };
-          });
-        }
         setSelectedFile(data);
       };
       fileReader.readAsText(file);
@@ -575,31 +452,6 @@ const useFilter = (data) => {
           });
         }
 
-        if (location.pathname === "/coupons") {
-          data = json.map((value) => {
-            return {
-              title: JSON.parse(value.title),
-              couponCode: value.couponCode,
-              endTime: value.endTime,
-              discountPercentage: value.discountPercentage,
-              minimumAmount: value.minimumAmount,
-              productType: value.productType,
-              logo: value.logo,
-              // discountType: JSON.parse(value.discountType),
-              status: value.status,
-            };
-          });
-        }
-        if (location.pathname === "/customers") {
-          data = json.map((value) => {
-            return {
-              name: value.name,
-              email: value.email,
-              password: value.password ? value.password : "null",
-              phone: value.phone ? value.phone : "null",
-            };
-          });
-        }
         setSelectedFile(data);
       };
 
@@ -622,107 +474,6 @@ const useFilter = (data) => {
 
         const isBelowThreshold = (currentValue) => currentValue === true;
         const validationData = categoryDataValidation.every(isBelowThreshold);
-
-        if (validationData) {
-          EventServices.addAllCategory(selectedFile)
-            .then((res) => {
-              setLoading(false);
-              setIsUpdate(true);
-              notifySuccess(res.message);
-            })
-            .catch((err) => {
-              setLoading(false);
-              notifyError(err ? err.response.data.message : err.message);
-            });
-        } else {
-          notifyError("Please enter valid data!");
-        }
-      }
-      if (location.pathname === "/customers") {
-        setLoading(true);
-        let customerDataValidation = selectedFile.map((value) =>
-          ajv.validate(customerSchema, value)
-        );
-
-        const isBelowThreshold = (currentValue) => currentValue === true;
-        const validationData = customerDataValidation.every(isBelowThreshold);
-
-        console.log(validationData);
-        console.log(customerDataValidation);
-
-        if (validationData) {
-          CustomerServices.addAllCustomers(selectedFile)
-            .then((res) => {
-              setLoading(false);
-              setIsUpdate(true);
-              notifySuccess(res.message);
-            })
-            .catch((err) => {
-              setLoading(false);
-              notifyError(err ? err.response.data.message : err.message);
-            });
-        } else {
-          notifyError("Please enter valid data!");
-        }
-      }
-      if (location.pathname === "/coupons") {
-        setLoading(true);
-        let attributeDataValidation = selectedFile.map((value) =>
-          ajv.validate(couponSchema, value)
-        );
-
-        const isBelowThreshold = (currentValue) => currentValue === true;
-        const validationData = attributeDataValidation.every(isBelowThreshold);
-
-        if (validationData) {
-          CouponServices.addAllCoupon(selectedFile)
-            .then((res) => {
-              setLoading(false);
-              setIsUpdate(true);
-              notifySuccess(res.message);
-            })
-            .catch((err) => {
-              setLoading(false);
-              notifyError(err ? err.response.data.message : err.message);
-            });
-        } else {
-          notifyError("Please enter valid data!");
-        }
-      }
-      if (location.pathname === "/attributes") {
-        setLoading(true);
-        let attributeDataValidation = selectedFile.map((value) =>
-          ajv.validate(attributeSchema, value)
-        );
-
-        const isBelowThreshold = (currentValue) => currentValue === true;
-        const validationData = attributeDataValidation.every(isBelowThreshold);
-
-        if (validationData) {
-          AttributeServices.addAllAttributes(selectedFile)
-            .then((res) => {
-              setLoading(false);
-              setIsUpdate(true);
-              notifySuccess(res.message);
-            })
-            .catch((err) => {
-              setLoading(false);
-              notifyError(err ? err.response.data.message : err.message);
-            });
-        } else {
-          notifyError("Please enter valid data!");
-        }
-      }
-
-      if (location.pathname === "/currencies") {
-        CurrencyServices.addAllCurrency(selectedFile)
-          .then((res) => {
-            setIsUpdate(true);
-            notifySuccess(res.message);
-          })
-          .catch((err) =>
-            notifyError(err ? err.response.data.message : err.message)
-          );
       }
     } else {
       notifyError("Please select a valid .JSON/.CSV/.XLS file first!");

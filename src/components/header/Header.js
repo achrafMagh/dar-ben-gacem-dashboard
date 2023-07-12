@@ -118,71 +118,14 @@ const Header = () => {
                 aria-label="Toggle color mode"
               >
                 {mode === "dark" ? (
-                  <IoSunny className="w-5 h-5" aria-hidden="true" />
+                  <IoSunny className="w-8 h-8" aria-hidden="true" />
                 ) : (
-                  <IoMoonSharp className="w-5 h-5" aria-hidden="true" />
+                  <IoMoonSharp className="w-6 h-6" aria-hidden="true" />
                 )}
               </button>
             </li>
 
             {/* <!-- Profile menu --> */}
-            <li className="relative inline-block text-left" ref={pRef}>
-              <button
-                className="rounded-full dark:bg-gray-500 bg-green-500 text-white h-8 w-8 font-medium mx-auto focus:outline-none"
-                onClick={handleProfileOpen}
-              >
-                {adminInfo.image ? (
-                  <Avatar
-                    className="align-middle"
-                    src={`${adminInfo.image}`}
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <span>{adminInfo.email[0].toUpperCase()}</span>
-                )}
-              </button>
-
-              {profileOpen && (
-                <ul className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <li className="justify-between font-serif font-medium py-2 pl-4 transition-colors duration-150 hover:bg-gray-100 text-gray-500 hover:text-green-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200">
-                    <Link to="/press">
-                      <span className="flex items-center text-sm">
-                        <IoGridOutline
-                          className="w-4 h-4 mr-3"
-                          aria-hidden="true"
-                        />
-                        <span>{t("Dashboard")}</span>
-                      </span>
-                    </Link>
-                  </li>
-
-                  <li className="justify-between font-serif font-medium py-2 pl-4 transition-colors duration-150 hover:bg-gray-100 text-gray-500 hover:text-green-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200">
-                    <Link to="/edit-profile">
-                      <span className="flex items-center text-sm">
-                        <IoSettingsOutline
-                          className="w-4 h-4 mr-3"
-                          aria-hidden="true"
-                        />
-                        <span>{t("EditProfile")}</span>
-                      </span>
-                    </Link>
-                  </li>
-
-                  <li
-                    onClick={handleLogOut}
-                    className="cursor-pointer justify-between font-serif font-medium py-2 pl-4 transition-colors duration-150 hover:bg-gray-100 text-gray-500 hover:text-green-500 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                  >
-                    <span className="flex items-center text-sm">
-                      <IoLogOutOutline
-                        className="w-4 h-4 mr-3"
-                        aria-hidden="true"
-                      />
-                      <span>{t("LogOut")}</span>
-                    </span>
-                  </li>
-                </ul>
-              )}
-            </li>
           </ul>
         </div>
       </header>

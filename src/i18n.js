@@ -1,7 +1,7 @@
-import i18n from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { initReactI18next } from 'react-i18next';
-import { translationDe, translationEn } from './pages/Translations';
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
+import { translationDe, translationEn } from "./pages/Translations";
 
 i18n
   .use(LanguageDetector)
@@ -14,7 +14,7 @@ i18n
     },
     debug: true,
     //lng: "en",
-    fallbackLng: 'en',
+    fallbackLng: "en",
     nonExplicitSupportedLngs: true,
 
     interpolation: {
@@ -22,6 +22,6 @@ i18n
     },
     detection: {
       //order: ['path', 'cookie', 'htmlTag'],
-      caches: ['cookie'],
+      caches: ["cookie"],
     },
   });

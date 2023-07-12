@@ -69,28 +69,6 @@ const UploadManyTwo = ({
         exportType: exportFromJSON.types.csv,
       });
     }
-    if (location.pathname === "/attributes") {
-      exportFromJSON({
-        data: exportData,
-        fileName: "attributes",
-        exportType: exportFromJSON.types.csv,
-      });
-    }
-
-    if (location.pathname === "/coupons") {
-      exportFromJSON({
-        data: exportData,
-        fileName: "coupons",
-        exportType: exportFromJSON.types.csv,
-      });
-    }
-    if (location.pathname === "/customers") {
-      exportFromJSON({
-        data: exportData,
-        fileName: "customers",
-        exportType: exportFromJSON.types.csv,
-      });
-    }
   };
 
   const handleExportJSON = () => {

@@ -4,11 +4,8 @@ import { useLocation } from "react-router-dom";
 
 //internal import
 import { SidebarContext } from "context/SidebarContext";
-import AttributeServices from "services/AttributeServices";
 import EventServices from "services/CategoryServices";
-import CouponServices from "services/CouponServices";
-import CurrencyServices from "services/CurrencyServices";
-import LanguageServices from "services/LanguageServices";
+
 import ProductServices from "services/ProductServices";
 
 import { notifyError, notifySuccess } from "utils/toast";
@@ -106,52 +103,11 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
         closeBulkDrawer();
       }
 
-      if (location.pathname === "/coupons") {
-        const res = await CouponServices.updateManyCoupons(couponData);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        closeBulkDrawer();
-      }
-
-      if (location.pathname === "/languages") {
-        const res = await LanguageServices.updateManyLanguage(languageData);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        closeBulkDrawer();
-        console.log("languages update Many");
-      }
-
-      if (location.pathname === "/currencies") {
-        const res = await CurrencyServices.updateManyCurrencies(currenciesData);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        closeBulkDrawer();
-        console.log("currencies update Many");
-      }
-
       if (
         location.pathname === "/categories" ||
         location.pathname === `/categories/${childId}`
       ) {
         const res = await EventServices.updateManyCategory(categoryData);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        closeBulkDrawer();
-      }
-
-      if (location.pathname === "/attributes") {
-        const res = await AttributeServices.updateManyAttribute(attributeData);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        closeBulkDrawer();
-      }
-
-      if (
-        location.pathname === `/attributes/${location.pathname.split("/")[2]}`
-      ) {
-        const res = await AttributeServices.updateManyChildAttribute(
-          childAttributeData
-        );
         setIsUpdate(true);
         notifySuccess(res.message);
         closeBulkDrawer();

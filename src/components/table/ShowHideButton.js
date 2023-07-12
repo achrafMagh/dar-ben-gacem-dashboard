@@ -4,12 +4,9 @@ import { useLocation } from "react-router-dom";
 
 //internal import
 import { SidebarContext } from "context/SidebarContext";
-import AttributeServices from "services/AttributeServices";
+
 import CategoryServices from "services/CategoryServices";
-import CouponServices from "services/CouponServices";
-import CurrencyServices from "services/CurrencyServices";
-import LanguageServices from "services/LanguageServices";
-import ProductServices from "services/ProductServices";
+
 import EventServices from "services/EventServices";
 import { notifyError, notifySuccess } from "utils/toast";
 
@@ -48,73 +45,6 @@ const ShowHideButton = ({ id, status, category, currencyStatusName }) => {
           isPublished: status,
         });
 
-        setIsUpdate(true);
-        notifySuccess(res.message);
-      }
-
-      if (location.pathname === "/products") {
-        const res = await ProductServices.updateStatus(id, {
-          status: newStatus,
-        });
-        setIsUpdate(true);
-        notifySuccess(res.message);
-      }
-
-      if (location.pathname === "/languages") {
-        const res = await LanguageServices.updateStatus(id, {
-          status: newStatus,
-        });
-        setIsUpdate(true);
-        notifySuccess(res.message);
-      }
-      if (location.pathname === "/currencies") {
-        if (currencyStatusName === "status") {
-          const res = await CurrencyServices.updateEnabledStatus(id, {
-            status: newStatus,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        } else {
-          const res = await CurrencyServices.updateLiveExchangeRateStatus(id, {
-            live_exchange_rates: newStatus,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        }
-      }
-
-      if (location.pathname === "/attributes") {
-        const res = await AttributeServices.updateStatus(id, {
-          status: newStatus,
-        });
-        setIsUpdate(true);
-        notifySuccess(res.message);
-      }
-
-      if (
-        location.pathname === `/attributes/${location.pathname.split("/")[2]}`
-      ) {
-        const res = await AttributeServices.updateChildStatus(id, {
-          status: newStatus,
-        });
-        setIsUpdate(true);
-        notifySuccess(res.message);
-      }
-
-      if (location.pathname === "/coupons") {
-        // console.log('coupns',id)
-        const res = await CouponServices.updateStatus(id, {
-          status: newStatus,
-        });
-        setIsUpdate(true);
-        notifySuccess(res.message);
-      }
-
-      if (location.pathname === "/our-staff") {
-        // console.log('coupns',id)
-        const res = await CouponServices.updateStaffStatus(id, {
-          status: newStatus,
-        });
         setIsUpdate(true);
         notifySuccess(res.message);
       }

@@ -3,9 +3,6 @@ import { useLocation } from "react-router-dom";
 import { Modal, ModalBody, ModalFooter, Button } from "@windmill/react-ui";
 import { FiTrash2 } from "react-icons/fi";
 
-import CustomerServices from "services/CustomerServices";
-import AdminServices from "services/AdminServices";
-import CouponServices from "services/CouponServices";
 import ProductServices from "services/ProductServices";
 import CategoryServices from "services/CategoryServices";
 import EventServices from "services/EventServices";
@@ -44,38 +41,6 @@ const MainModal = ({ id, title }) => {
     if (location.pathname === "/events") {
       console.log("here");
       EventServices.deleteEvent(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
-      closeModal();
-      setServiceId();
-    }
-
-    if (location.pathname === "/customers") {
-      CustomerServices.deleteCustomer(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
-      closeModal();
-      setServiceId();
-    }
-
-    if (location.pathname === "/coupons") {
-      CouponServices.deleteCoupon(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
-      closeModal();
-      setServiceId();
-    }
-    if (location.pathname === "/our-staff") {
-      AdminServices.deleteStaff(id)
         .then((res) => {
           setIsUpdate(true);
           notifySuccess(res.message);

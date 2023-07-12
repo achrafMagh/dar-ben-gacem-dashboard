@@ -8,16 +8,14 @@ import spinnerLoadingImage from "assets/img/spinner.gif";
 import { SidebarContext } from "context/SidebarContext";
 import AdminServices from "services/AdminServices";
 import CategoryServices from "services/CategoryServices";
-import CouponServices from "services/CouponServices";
-import LanguageServices from "services/LanguageServices";
+
 import ProductServices from "services/ProductServices";
 import EventServices from "services/EventServices";
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useToggleDrawer from "hooks/useToggleDrawer";
-import AttributeServices from "services/AttributeServices";
-import CurrencyServices from "services/CurrencyServices";
+
 import { notifyError, notifySuccess } from "utils/toast";
 
 const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
@@ -43,27 +41,6 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
           setIsSubmitting(false);
         } else {
           const res = await ProductServices.deleteProduct(id);
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        }
-      }
-
-      if (location.pathname === "/coupons") {
-        if (ids) {
-          const res = await CouponServices.deleteManyCoupons({
-            ids: ids,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setIsCheck([]);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        } else {
-          const res = await CouponServices.deleteCoupon(id);
           setIsUpdate(true);
           notifySuccess(res.message);
           setServiceId();
@@ -134,105 +111,6 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
         setServiceId();
         closeModal();
         setIsSubmitting(false);
-      }
-
-      if (location.pathname === "/attributes") {
-        if (ids) {
-          const res = await AttributeServices.deleteManyAttribute({
-            ids: ids,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setIsCheck([]);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        } else {
-          const res = await AttributeServices.deleteAttribute(id);
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        }
-      }
-
-      if (
-        location.pathname === `/attributes/${location.pathname.split("/")[2]}`
-      ) {
-        if (ids) {
-          const res = await AttributeServices.deleteManyChildAttribute({
-            id: location.pathname.split("/")[2],
-            ids: ids,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setServiceId();
-          setIsCheck([]);
-          closeModal();
-          setIsSubmitting(false);
-        } else {
-          console.log("att value delete", id, location.pathname.split("/")[2]);
-
-          const res = await AttributeServices.deleteChildAttribute({
-            id: id,
-            ids: location.pathname.split("/")[2],
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        }
-      }
-
-      if (location.pathname === "/our-staff") {
-        const res = await AdminServices.deleteStaff(id);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        setServiceId();
-        closeModal();
-        setIsSubmitting(false);
-      }
-
-      if (location.pathname === "/languages") {
-        if (ids) {
-          const res = await LanguageServices.deleteManyLanguage({
-            ids: ids,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setIsCheck([]);
-          closeModal();
-          setIsSubmitting(false);
-        } else {
-          const res = await LanguageServices.deleteLanguage(id);
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        }
-      }
-
-      if (location.pathname === "/currencies") {
-        if (ids) {
-          const res = await CurrencyServices.deleteManyCurrency({
-            ids: ids,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setIsCheck([]);
-          closeModal();
-          setIsSubmitting(false);
-        } else {
-          const res = await CurrencyServices.deleteCurrency(id);
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        }
       }
     } catch (err) {
       notifyError(err ? err?.response?.data?.message : err?.message);

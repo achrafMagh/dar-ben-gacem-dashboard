@@ -5,10 +5,6 @@ import { lazy } from "react";
 
 const Category = lazy(() => import("../pages/Category"));
 
-// const Setting = lazy(() => import("../pages/Setting"));
-const Page404 = lazy(() => import("../pages/404"));
-
-const Setting = lazy(() => import("../pages/Setting"));
 const Event = lazy(() => import("../pages/Event"));
 const EventDetails = lazy(() => import("../pages/EventDetails"));
 /*
@@ -38,11 +34,6 @@ const routes = [
   {
     path: "/events/:id",
     component: EventDetails,
-  },
-  { path: "/settings", component: Setting },
-  {
-    path: "/404",
-    component: Page404,
   },
 ];
 

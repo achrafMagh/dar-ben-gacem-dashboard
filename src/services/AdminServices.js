@@ -18,10 +18,6 @@ const AdminServices = {
     return requests.put("/admin/reset-password", body);
   },
 
-  signUpWithProvider: async (body) => {
-    return requests.post("/admin/signup", body);
-  },
-
   addStaff: async (body) => {
     return requests.post("/admin/add", body);
   },

@@ -1,27 +1,5 @@
 export const translationEn = {
   // DashBoard
-  DashboardOverview: "Dashboard Overview",
-  TodayOrder: "Today Orders",
-  YesterdayOrder: "Yesterday Orders",
-  ThisMonth: "This Month",
-  AllTimeSales: "All-Time Sales",
-  TotalOrder: "Total Orders",
-  OrderPending: "Orders Pending",
-  OrderProcessing: "Orders Processing",
-  OrderDelivered: "Orders Delivered",
-  POSOrders: "POS Orders",
-  OnlineOrders: "Online Orders",
-  WeeklySales: "Weekly Sales",
-  BestSellingProducts: "Best Selling Products",
-  Cash: "Cash",
-  Card: "Card",
-  Credit: "Credit",
-
-  // dashBoard Chart
-  ConversionsThisYear: "Conversions This Year",
-  ConversionsThisWeek: "Conversions This Week",
-  FreshVegetable: "Fresh Vegetable",
-  TopRevenueProduct: "Top Revenue Product",
 
   //Line Chart
   Sales: "Sales",
@@ -56,7 +34,7 @@ export const translationEn = {
   GlobalSettings: "Global Settings",
   UseCompositionProduct: "Use Composition Product",
   CashiersCanOverrideInuseItems: "Cashiers can override Inuse items",
-  EditProfile: "Edit Profile",
+
   LogOut: "Log Out",
   StockHandlingMethod: "Stock Handling Method",
   Pages: "Pages",
@@ -1111,7 +1089,7 @@ export const translationDe = {
   ViewStore: "Online-Shop",
   Shop: "Aussicht dein Speichern",
   StoreSetting: "Einstellung",
-  EditProfile: "Profil bearbeiten",
+
   LogOut: "Ausloggen",
   StockHandlingMethod: "Stock-Handling-Methode",
 

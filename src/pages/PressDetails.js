@@ -9,18 +9,14 @@ import Loading from "components/preloader/Loading";
 import PageTitle from "components/Typography/PageTitle";
 import { SidebarContext } from "context/SidebarContext";
 import useAsync from "hooks/useAsync";
-import useProductSubmit from "hooks/useProductSubmit";
 import useToggleDrawer from "hooks/useToggleDrawer";
 import PressServices from "services/PressServices";
 import CategoryDrawer from "components/drawer/CategoryDrawer";
 
 const PressDetails = () => {
   const { id } = useParams();
-  const { t } = useTranslation();
+
   const { handleUpdate } = useToggleDrawer();
-  const { attribue } = useProductSubmit(id);
-  const [variantTitle, setVariantTitle] = useState([]);
-  const { lang } = useContext(SidebarContext);
 
   const { data, loading } = useAsync(() => PressServices.getPressById(id));
 
