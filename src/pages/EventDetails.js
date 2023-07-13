@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 
 const EventDetails = () => {
   const { id } = useParams();
+  const { t } = useTranslation();
   const { handleUpdate } = useToggleDrawer();
 
   const { data, loading } = useAsync(() => EventServices.getEventById(id));
