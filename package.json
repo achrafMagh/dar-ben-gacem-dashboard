@@ -75,9 +75,7 @@
     "@react-pdf/font": "2.2.0",
     "react-scripts/**/react-error-overlay": "6.0.9"
   },
-  "engines": {
-    "node": "18.x"
-  },
+  
   
   "scripts": {
     "tailwind:dev": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
@@ -113,6 +111,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "engines": {
+    "node": ""
   },
   "browserslist": {
     "production": [
