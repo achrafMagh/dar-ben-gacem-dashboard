@@ -2,7 +2,6 @@ import requests from "./httpService";
 
 const EventServices = {
   updateEvent: async (id, body) => {
-    console.log("body", body);
     return requests.put(`/events/${id}`, body);
   },
 

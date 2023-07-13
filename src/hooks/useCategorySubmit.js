@@ -31,10 +31,6 @@ const useCategorySubmit = (id, data) => {
   // console.log("lang", lang, language);
 
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log("imageFile", imageFile);
-    console.log("imageUrl", imageUrl);
-
     const { title, description, source, link, isPublished } = data;
 
     const formData = new FormData();
@@ -138,7 +134,6 @@ const useCategorySubmit = (id, data) => {
       (async () => {
         try {
           const res = await EventServices.getPressById(id);
-          console.log("res category", res);
 
           if (res) {
             setValue("title", res.data.title);

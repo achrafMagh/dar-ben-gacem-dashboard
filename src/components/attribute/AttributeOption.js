@@ -9,13 +9,11 @@ const AttributeOption = ({
   resetRef,
   id,
   lang,
-  
 }) => {
   const [attributeOptions, setAttributeOptions] = useState([]);
   const [selectionLimit, setSelectionLimit] = useState(null);
 
   const handleSelectValue = (v, el) => {
-    console.log("handleValue", v, el);
     if (el?.name === "All") {
       const result = attributes?.variants.filter((att) => att._id !== "1");
 
@@ -24,11 +22,9 @@ const AttributeOption = ({
         [attributes._id]: result?.map((el) => el._id),
       });
 
-      
       setSelectionLimit("1");
       // setAttributeOptions([el]);
     } else {
-  
       setSelectionLimit(null);
       const dd = attributes?.variants.map((val) => {
         return {
@@ -47,9 +43,7 @@ const AttributeOption = ({
   };
 
   const handleRemoveValue = (v, el, id) => {
-    console.log("handleRemoveValue", v, el);
     if (el._id === "1") {
-     
       setSelectionLimit("1");
       let dd = attributes?.variants?.map((val) => {
         return {
@@ -58,12 +52,9 @@ const AttributeOption = ({
         };
       });
 
-      console.log("dd", dd);
-
       setAttributeOptions([]);
       setAttributeOptions(dd);
     } else {
-    
       setSelectionLimit(null);
       const exceptAllData = v.filter((el) => el._id !== "1");
 

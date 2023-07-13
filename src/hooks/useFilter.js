@@ -143,7 +143,6 @@ const useFilter = (data) => {
     }
 
     if (attributeTitle) {
-      console.log("asss");
       services = services.filter(
         (search) =>
           search?.title[lang]
@@ -281,7 +280,6 @@ const useFilter = (data) => {
   const handleSubmitForAll = (e) => {
     e.preventDefault();
     setSearchText(searchRef.current.value);
-    console.log(searchRef.current.value);
   };
   const handleSubmitUser = (e) => {
     e.preventDefault();
@@ -298,7 +296,6 @@ const useFilter = (data) => {
   const handleSubmitCategory = (e) => {
     e.preventDefault();
     setSearchText(searchRef.current.value);
-    console.log(searchRef.current.value);
 
     //setCategoryType(categoryRef.current.value);
     //setSearchPress(categoryRef.current.value);
@@ -383,7 +380,7 @@ const useFilter = (data) => {
       fileReader.onload = async (event) => {
         const text = event.target.result;
         const json = await csvToJson().fromString(text);
-        console.log("json", json);
+
         let data = [];
 
         if (location.pathname === "/categories") {

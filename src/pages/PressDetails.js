@@ -20,8 +20,6 @@ const PressDetails = () => {
 
   const { data, loading } = useAsync(() => PressServices.getPressById(id));
 
-  console.log("data", data);
-
   return (
     <>
       <MainDrawer product>
@@ -54,7 +52,7 @@ const PressDetails = () => {
                 })}
               </p>
             </div>
-            <div className="w-full flex flex-col p-5 md:p-8 text-left">
+            <div className="w-full flex flex-col p-5 md:p-8 text-left dark:text-gray-400">
               <div className="mb-5 block ">
                 <div className="font-serif font-semibold py-1 text-sm">
                   <p className="text-sm text-gray-500 pr-4">
@@ -75,11 +73,13 @@ const PressDetails = () => {
                   {data?.data?.title}
                 </h2>
 
-                <div className="pt-10">
-                  <span className="font-semibold text-lg">Source: </span>{" "}
+                <div className="pt-10 ">
+                  <span className="font-semibold text-lg dark:text-gray-400">
+                    Source:{" "}
+                  </span>{" "}
                   {data?.data?.source}
                 </div>
-                <div className="pt-2">
+                <div className="pt-2 dark:text-gray-400">
                   <span className="font-semibold text-lg">Link:</span>{" "}
                   <a
                     href={data?.data?.link}

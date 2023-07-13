@@ -93,7 +93,6 @@ const UploadManyTwo = ({
         .catch((err) => {
           setDropDown(false);
           setLoadingExport({ name: "json", status: true });
-          console.log(err);
         });
     }
     if (location.pathname === "/categories") {

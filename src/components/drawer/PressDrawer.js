@@ -39,8 +39,6 @@ const PressDrawer = ({ id, data, lang }) => {
     isSubmitting,
   } = usePressSubmit(id, data);
 
-  console.log("image=======>", imageUrl);
-
   const STYLE = `
   .rc-tree-child-tree {
     display: hidden;
@@ -63,7 +61,6 @@ const PressDrawer = ({ id, data, lang }) => {
   };
 
   const renderPresses = (presses) => {
-    console.log(data);
     let myPresses = [];
     for (let press of presses) {
       myPresses.push({
@@ -89,7 +86,6 @@ const PressDrawer = ({ id, data, lang }) => {
     // console.log('key', key, 'id', id);
     if (key === undefined) return;
     if (id) {
-      console.log(id);
       /*  const parentCategoryId = await CategoryServices.getCategoryById(key);
 
       if (id === key) {

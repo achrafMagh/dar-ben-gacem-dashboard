@@ -39,7 +39,6 @@ const MainModal = ({ id, title }) => {
     }
 
     if (location.pathname === "/events") {
-      console.log("here");
       EventServices.deleteEvent(id)
         .then((res) => {
           setIsUpdate(true);

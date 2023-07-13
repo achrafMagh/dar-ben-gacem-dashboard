@@ -25,8 +25,6 @@ const EventTable = ({
 }) => {
   const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
 
-  console.log("table", data);
-
   return (
     <>
       {isCheck?.length < 1 && (
@@ -59,7 +57,11 @@ const EventTable = ({
             <TableCell className="text-sm">
               {dayjs(event?.startDate).format("MM/D/YYYY HH:mm")}
             </TableCell>
-            <TableCell className="text-sm">{`${event?.numberOfDays} days`}</TableCell>
+            <TableCell className="text-sm">
+              {event?.numberOfDays === 1
+                ? `${event?.numberOfDays} day`
+                : `${event?.numberOfDays} days`}
+            </TableCell>
 
             <TableCell className="text-sm">{event?.location}</TableCell>
 

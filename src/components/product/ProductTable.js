@@ -25,7 +25,6 @@ const ProductTable = ({ products, isCheck, setIsCheck, currency, lang }) => {
 
   const handleClick = (e) => {
     const { id, checked } = e.target;
-    console.log("id", id, checked);
 
     setIsCheck([...isCheck, id]);
     if (!checked) {

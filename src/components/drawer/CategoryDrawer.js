@@ -41,8 +41,6 @@ const CategoryDrawer = ({ id, data, lang }) => {
     setFiles,
   } = useCategorySubmit(id, data);
 
-  console.log("image=======>", imageUrl);
-
   const STYLE = `
   .rc-tree-child-tree {
     display: hidden;

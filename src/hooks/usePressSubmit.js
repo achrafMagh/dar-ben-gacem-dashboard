@@ -100,7 +100,6 @@ const usePressSubmit = (id, data) => {
       (async () => {
         try {
           const res = await PressServices.getPressById(id);
-          console.log("res press", res);
 
           if (res) {
             setResData(res);

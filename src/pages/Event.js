@@ -43,8 +43,6 @@ const Event = () => {
 
   const { t } = useTranslation();
 
-  console.log(data);
-
   const {
     handleSubmitCategory,
     categoryRef,

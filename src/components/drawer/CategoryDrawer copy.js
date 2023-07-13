@@ -37,8 +37,6 @@ const CategoryDrawer = ({ id, data, lang }) => {
     isSubmitting,
   } = useCategorySubmit(id, data);
 
-  console.log("image=======>", imageUrl);
-
   const STYLE = `
   .rc-tree-child-tree {
     display: hidden;
@@ -84,7 +82,6 @@ const CategoryDrawer = ({ id, data, lang }) => {
   };
 
   const handleSelect = async (key) => {
-    // console.log('key', key, 'id', id);
     if (key === undefined) return;
     if (id) {
       const parentCategoryId = await EventServices.getCategoryById(key);

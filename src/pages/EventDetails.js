@@ -18,8 +18,6 @@ const EventDetails = () => {
 
   const { data, loading } = useAsync(() => EventServices.getEventById(id));
 
-  console.log("data", data);
-
   return (
     <>
       <MainDrawer product>
@@ -55,7 +53,7 @@ const EventDetails = () => {
             <div className="w-full flex flex-col p-5 md:p-8 text-left">
               <div className="mb-5 block ">
                 <div className="font-serif font-semibold py-1 text-sm">
-                  <p className="text-sm text-gray-500 pr-4">
+                  <p className="text-sm text-gray-500 pr-4 dark:text-gray-400">
                     Status:{" "}
                     {data.data.isPublished ? (
                       <span className="text-green-400">
@@ -73,8 +71,8 @@ const EventDetails = () => {
                   {data?.data?.title}
                 </h2>
 
-                <div className="pt-10">
-                  <span className="font-semibold text-lg">Start Date: </span>{" "}
+                <div className="pt-10 dark:text-gray-400">
+                  <span className="font-semibold text-lg ">Start Date: </span>{" "}
                   {dayjs(data?.data?.startDate).format("MM/D/YYYY HH:mm")}
                 </div>
                 <div className="pt-2">
@@ -89,7 +87,7 @@ const EventDetails = () => {
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4">
                 <button
                   onClick={() => handleUpdate(id)}
                   className="cursor-pointer leading-5 transition-colors duration-150 font-medium text-sm focus:outline-none px-5 py-2 rounded-md text-white bg-green-500 border border-transparent active:bg-green-600 hover:bg-green-600 focus:ring focus:ring-purple-300"

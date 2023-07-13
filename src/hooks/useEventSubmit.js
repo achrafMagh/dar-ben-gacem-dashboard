@@ -32,10 +32,6 @@ const useEventSubmit = (id, data) => {
   // console.log("lang", lang, language);
 
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log("imageFile", imageFile);
-    console.log("imageUrl", imageUrl);
-
     const {
       title,
       description,
@@ -55,7 +51,6 @@ const useEventSubmit = (id, data) => {
     formData.append("location", location);
 
     formData.append("isPublished", published);
-    console.log("formaData", formData);
 
     if (id) {
       const res = await EventServices.updateEvent(id, formData);
@@ -66,7 +61,7 @@ const useEventSubmit = (id, data) => {
       reset();
     } else {
       const res = await EventServices.addEvent(formData);
-      console.log("add EVENT");
+
       setIsUpdate(true);
       setIsSubmitting(false);
       notifySuccess(res.message);
@@ -153,7 +148,6 @@ const useEventSubmit = (id, data) => {
       (async () => {
         try {
           const res = await EventServices.getEventById(id);
-          console.log("res category", res);
 
           if (res) {
             setValue("title", res.data.title);

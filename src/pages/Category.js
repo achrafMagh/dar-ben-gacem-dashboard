@@ -44,8 +44,6 @@ const Category = () => {
 
   const { t } = useTranslation();
 
-  console.log(data);
-
   const {
     handleSubmitCategory,
     categoryRef,
