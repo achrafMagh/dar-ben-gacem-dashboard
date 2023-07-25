@@ -75,12 +75,12 @@ const EventDetails = () => {
                   <span className="font-semibold text-lg ">Start Date: </span>{" "}
                   {dayjs(data?.data?.startDate).format("MM/D/YYYY HH:mm")}
                 </div>
-                <div className="pt-2">
+                {/* <div className="pt-2">
                   <span className="font-semibold text-lg">Duration:</span>{" "}
                   {data?.data?.numberOfDays === 1
                     ? `${data?.data?.numberOfDays} day`
                     : `${data?.data?.numberOfDays} days`}
-                </div>
+                </div> */}
                 <div className="pt-2">
                   <span className="font-semibold text-lg">Location:</span>{" "}
                   {data?.data?.location}
