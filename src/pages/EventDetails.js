@@ -39,7 +39,7 @@ const EventDetails = () => {
                 />
               </div>
               <p className="text-base leading-6 text-gray-500 dark:text-gray-400 md:leading-7 pt-20">
-                {data?.data?.description.split(/\r?\n/).map((item, i) => {
+                {data?.data?.description?.split(/\r?\n/).map((item, i) => {
                   return (
                     <li key={i}>
                       <span className="text-gray-700 dark:text-gray-400">
