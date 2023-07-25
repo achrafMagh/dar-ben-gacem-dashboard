@@ -57,11 +57,11 @@ const EventTable = ({
             <TableCell className="text-sm">
               {dayjs(event?.startDate).format("MM/D/YYYY HH:mm")}
             </TableCell>
-            <TableCell className="text-sm">
+            {/* <TableCell className="text-sm">
               {event?.numberOfDays === 1
                 ? `${event?.numberOfDays} day`
                 : `${event?.numberOfDays} days`}
-            </TableCell>
+            </TableCell> */}
 
             <TableCell className="text-sm">{event?.location}</TableCell>
 

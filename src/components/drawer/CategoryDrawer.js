@@ -152,7 +152,7 @@ const CategoryDrawer = ({ id, data, lang }) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+            {/* <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
               <LabelArea label={"Description"} />
               <div className="col-span-8 sm:col-span-4">
                 <TextAreaCom
@@ -165,7 +165,7 @@ const CategoryDrawer = ({ id, data, lang }) => {
                 />
                 <Error errorName={errors.description} />
               </div>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
               <LabelArea label="Press Image" />

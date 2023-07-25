@@ -97,8 +97,10 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
 
       if (location.pathname === "/events") {
         const res = await EventServices.deleteEvent(id);
+        if (res.success === true) {
+          notifySuccess("Event  deleted successfully!");
+        }
         setIsUpdate(true);
-        notifySuccess(res.message);
         setServiceId();
         closeModal();
         setIsSubmitting(false);
@@ -107,7 +109,9 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
       if (location.pathname === "/press") {
         const res = await CategoryServices.deletePress(id);
         setIsUpdate(true);
-        notifySuccess(res.message);
+        if (res.success === true) {
+          notifySuccess("Press  deleted successfully!");
+        }
         setServiceId();
         closeModal();
         setIsSubmitting(false);

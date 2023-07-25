@@ -110,7 +110,7 @@ const Event = () => {
                 <TableCell>{"Image"}</TableCell>
                 <TableCell>{"Title"}</TableCell>
                 <TableCell>{"Start Date"}</TableCell>
-                <TableCell>{"Duration"}</TableCell>
+                {/*   <TableCell>{"Duration"}</TableCell> */}
                 {/* <TableCell>{"Registration End Date"}</TableCell> */}
                 <TableCell>{"Location"}</TableCell>
 

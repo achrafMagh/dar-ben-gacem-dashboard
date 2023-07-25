@@ -54,17 +54,24 @@ const useEventSubmit = (id, data) => {
 
     if (id) {
       const res = await EventServices.updateEvent(id, formData);
+
+      if (res.success === true) {
+        notifySuccess("Event updated successfully!");
+      }
+
       setIsUpdate(true);
       setIsSubmitting(false);
-      notifySuccess(res.message);
       closeDrawer();
       reset();
     } else {
       const res = await EventServices.addEvent(formData);
 
+      if (res.success === true) {
+        notifySuccess("Event added successfully!");
+      }
+
       setIsUpdate(true);
       setIsSubmitting(false);
-      notifySuccess(res.message);
       closeDrawer();
     }
 

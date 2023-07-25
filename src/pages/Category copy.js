@@ -30,7 +30,7 @@ import UploadManyTwo from "components/common/UploadManyTwo";
 import SwitchToggleChildCat from "components/form/SwitchToggleChildCat";
 import TableLoading from "components/preloader/TableLoading";
 import CheckBox from "components/form/CheckBox";
-import CategoryTable from "components/category/CategoryTable";
+import PressTable from "components/category/PressTable";
 import NotFound from "components/table/NotFound";
 
 const Category = () => {
@@ -207,7 +207,7 @@ const Category = () => {
               </tr>
             </TableHeader>
 
-            <CategoryTable
+            <PressTable
               data={data}
               lang={lang}
               isCheck={isCheck}

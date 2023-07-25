@@ -15,7 +15,6 @@ import Scrollbars from "react-custom-scrollbars-2";
 import { useTranslation } from "react-i18next";
 //internal import
 
-import PressServices from "services/PressServices";
 import { notifyError } from "utils/toast";
 import { showingTranslateValue } from "utils/translate";
 

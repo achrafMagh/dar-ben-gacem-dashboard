@@ -40,7 +40,7 @@ const PressDetails = () => {
                   alt={data?.data?.title}
                 />
               </div>
-              <p className="text-base leading-6 text-gray-500 dark:text-gray-400 md:leading-7 pt-20">
+              {/* <p className="text-base leading-6 text-gray-500 dark:text-gray-400 md:leading-7 pt-20">
                 {data?.data?.description.split(/\r?\n/).map((item, i) => {
                   return (
                     <li key={i}>
@@ -50,7 +50,7 @@ const PressDetails = () => {
                     </li>
                   );
                 })}
-              </p>
+              </p> */}
             </div>
             <div className="w-full flex flex-col p-5 md:p-8 text-left dark:text-gray-400">
               <div className="mb-5 block ">
@@ -59,7 +59,7 @@ const PressDetails = () => {
                     Status:{" "}
                     {data.data.isPublished ? (
                       <span className="text-green-400">
-                        This event is published
+                        This press is published
                       </span>
                     ) : (
                       <span className="text-red-400">
