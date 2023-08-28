@@ -39,7 +39,7 @@ const EventDetails = () => {
                 />
               </div>
               <p className="text-base leading-6 text-gray-500 dark:text-gray-400 md:leading-7 pt-20">
-                {data?.data?.description.split(/\r?\n/).map((item, i) => {
+                {data?.data?.description?.split(/\r?\n/).map((item, i) => {
                   return (
                     <li key={i}>
                       <span className="text-gray-700 dark:text-gray-400">
@@ -75,12 +75,12 @@ const EventDetails = () => {
                   <span className="font-semibold text-lg ">Start Date: </span>{" "}
                   {dayjs(data?.data?.startDate).format("MM/D/YYYY HH:mm")}
                 </div>
-                <div className="pt-2">
+                {/* <div className="pt-2">
                   <span className="font-semibold text-lg">Duration:</span>{" "}
                   {data?.data?.numberOfDays === 1
                     ? `${data?.data?.numberOfDays} day`
                     : `${data?.data?.numberOfDays} days`}
-                </div>
+                </div> */}
                 <div className="pt-2">
                   <span className="font-semibold text-lg">Location:</span>{" "}
                   {data?.data?.location}

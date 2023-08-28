@@ -125,7 +125,17 @@ const EventDrawer = ({ id, data, lang }) => {
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
               <LabelArea label={"Location"} />
               <div className="col-span-8 sm:col-span-4">
-                <Select
+                <div className="col-span-8 sm:col-span-4">
+                  <InputArea
+                    register={register}
+                    label="Event location"
+                    name="location"
+                    type="text"
+                    placeholder={"Event location"}
+                  />
+                  <Error errorName={errors.location} />
+                </div>
+                {/*  <Select
                   className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 dark:bg-white border-transparent focus:bg-white"
                   name="location"
                   {...register("location", {
@@ -138,7 +148,7 @@ const EventDrawer = ({ id, data, lang }) => {
                   <option value={"kahia"}>Kahia</option>
                   <option value={"pacha"}>Pacha</option>
                 </Select>
-                <Error errorName={errors.location} />
+                <Error errorName={errors.location} /> */}
               </div>
             </div>
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
@@ -157,7 +167,7 @@ const EventDrawer = ({ id, data, lang }) => {
                 <Error errorName={errors.startDate} />
               </div>
             </div>
-            <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+            {/*   <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
               <LabelArea label={"Duration"} />
               <div className="col-span-8 sm:col-span-4">
                 <Input
@@ -171,7 +181,7 @@ const EventDrawer = ({ id, data, lang }) => {
 
                 <Error errorName={errors.numberOfDays} />
               </div>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
               <LabelArea label={"Description"} />

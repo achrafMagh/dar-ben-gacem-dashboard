@@ -32,39 +32,39 @@ const useEventSubmit = (id, data) => {
   // console.log("lang", lang, language);
 
   const onSubmit = async (data) => {
-    const {
-      title,
-      description,
-      startDate,
-
-      numberOfDays,
-      location,
-      isPublished,
-    } = data;
+    const { title, description, startDate, location, isPublished } = data;
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("startDate", startDate);
-    formData.append("numberOfDays", numberOfDays);
+    //formData.append("numberOfDays", numberOfDays);
     formData.append("description", description);
     formData.append("image", imageFile);
     formData.append("location", location);
-
     formData.append("isPublished", published);
+
+    console.log(description);
 
     if (id) {
       const res = await EventServices.updateEvent(id, formData);
+
+      if (res.success === true) {
+        notifySuccess("Event updated successfully!");
+      }
+
       setIsUpdate(true);
       setIsSubmitting(false);
-      notifySuccess(res.message);
       closeDrawer();
       reset();
     } else {
       const res = await EventServices.addEvent(formData);
 
+      if (res.success === true) {
+        notifySuccess("Event added successfully!");
+      }
+
       setIsUpdate(true);
       setIsSubmitting(false);
-      notifySuccess(res.message);
       closeDrawer();
     }
 

@@ -9,7 +9,7 @@ import {
   TableFooter,
   TableHeader,
 } from "@windmill/react-ui";
-import CategoryTable from "components/category/CategoryTable";
+import PressTable from "components/category/PressTable";
 import BulkActionDrawer from "components/drawer/BulkActionDrawer";
 import CheckBox from "components/form/CheckBox";
 import DeleteModal from "components/modal/DeleteModal";
@@ -196,7 +196,7 @@ const ChildCategory = () => {
               </tr>
             </TableHeader>
 
-            <CategoryTable
+            <PressTable
               categories={dataTable}
               data={data}
               lang={lang}

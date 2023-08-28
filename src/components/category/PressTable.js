@@ -14,7 +14,7 @@ import { showingTranslateValue } from "utils/translate";
 import Tooltip from "components/tooltip/Tooltip";
 import { FiZoomIn } from "react-icons/fi";
 
-const CategoryTable = ({
+const PressTable = ({
   data,
   lang,
   isCheck,
@@ -109,4 +109,4 @@ const CategoryTable = ({
   );
 };
 
-export default CategoryTable;
+export default PressTable;

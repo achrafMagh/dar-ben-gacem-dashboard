@@ -1,6 +1,6 @@
 import requests from "./httpService";
 
-const CategoryServices = {
+const PressServices = {
   updatePress: async (id, body) => {
     return requests.put(`/press/${id}`, body);
   },
@@ -26,4 +26,4 @@ const CategoryServices = {
   },
 };
 
-export default CategoryServices;
+export default PressServices;
