@@ -6,9 +6,9 @@
   "scope": ".",
   "start_url": ".",
   "id": ".",
-  "short_name": "Dashtar - Admin",
-  "name": "Dashtar - React eCommerce Admin Dashboard",
-  "description": "React Grocery & Organic Food Store e-commerce Admin Dashboard",
+  "short_name": "DarBenGacem - Admin",
+  "name": "DarBenGacem - Admin Dashboard",
+  "description": "Dar ben gacem admin",
   "icons": [
     {
       "src": "/icon-192x192.png",

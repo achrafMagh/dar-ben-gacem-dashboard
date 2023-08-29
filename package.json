@@ -1,7 +1,7 @@
 {
-  "name": "dashtar-admin",
+  "name": "dar-bengacem-admin",
   "version": "0.1.0",
-  "description": "this is Dashtar-admin built with react.js and tailwindcss",
+  "description": "Dar ben gacem admin dashboard",
   "private": true,
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
@@ -78,7 +78,6 @@
   "engines": {
     "node": ">=14 <15"
   },
-  
   "scripts": {
     "tailwind:dev": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
     "tailwind:build": "cross-env NODE_ENV=production postcss src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
@@ -114,7 +113,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  
   "browserslist": {
     "production": [
       ">0.3%",
