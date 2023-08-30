@@ -16,28 +16,6 @@ const MainModal = ({ id, title }) => {
   const location = useLocation();
 
   const handleDelete = () => {
-    if (location.pathname === "/products") {
-      ProductServices.deleteProduct(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
-      closeModal();
-      setServiceId();
-    }
-
-    if (location.pathname === "/category") {
-      CategoryServices.deleteCategory(id)
-        .then((res) => {
-          setIsUpdate(true);
-          notifySuccess(res.message);
-        })
-        .catch((err) => notifyError(err.message));
-      closeModal();
-      setServiceId();
-    }
-
     if (location.pathname === "/events") {
       EventServices.deleteEvent(id)
         .then((res) => {

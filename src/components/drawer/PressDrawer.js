@@ -13,7 +13,7 @@ import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { useTranslation } from "react-i18next";
 //internal import
-import EventServices from "services/CategoryServices";
+
 import { notifyError } from "utils/toast";
 import { showingTranslateValue } from "utils/translate";
 
@@ -21,7 +21,6 @@ const CategoryDrawer = ({ id, data, lang }) => {
   const { t } = useTranslation();
 
   const {
-    checked,
     register,
     onSubmit,
     handleSubmit,
@@ -30,9 +29,6 @@ const CategoryDrawer = ({ id, data, lang }) => {
     setImageUrl,
     published,
     setPublished,
-    setChecked,
-    selectCategoryName,
-    setSelectCategoryName,
     handleSelectLanguage,
     isSubmitting,
     imageFile,

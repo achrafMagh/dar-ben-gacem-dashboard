@@ -11,8 +11,7 @@ import {
   TableHeader,
 } from "@windmill/react-ui";
 import { useContext, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 
 //internal import
 
@@ -27,47 +26,30 @@ import PageTitle from "components/Typography/PageTitle";
 import MainDrawer from "components/drawer/MainDrawer";
 import PressDrawer from "components/drawer/PressDrawer";
 import TableLoading from "components/preloader/TableLoading";
-import PressTable from "components/category/PressTable";
+import PressTable from "components/press/PressTable";
 import NotFound from "components/table/NotFound";
 
 const Press = () => {
   const { toggleDrawer, lang } = useContext(SidebarContext);
 
   const { data, loading } = useAsync(PressServices.getAllPress);
-  //const { data: getAllCategories } = useAsync(EventServices.getAllCategories);
 
   const { allId, serviceId } = useToggleDrawer();
 
-  const { t } = useTranslation();
-
   const {
     handleSubmitCategory,
-    categoryRef,
     totalResults,
     resultsPerPage,
     dataTable,
     serviceData,
     handleChangePage,
-    filename,
-    isDisabled,
-    handleSelectFile,
-    handleUploadMultiple,
-    handleRemoveSelectFile,
+
     searchRef,
   } = useFilter(data ? data.data : []);
 
   // react hooks
-  const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
   const [showChild, setShowChild] = useState(false);
-
-  const handleSelectAll = () => {
-    setIsCheckAll(!isCheckAll);
-    setIsCheck(data[0]?.children.map((li) => li._id));
-    if (isCheckAll) {
-      setIsCheck([]);
-    }
-  };
 
   return (
     <>
@@ -122,8 +104,6 @@ const Press = () => {
                 <TableCell>{"ID"}</TableCell>
                 <TableCell>{"Image"}</TableCell>
                 <TableCell>{"Title"}</TableCell>
-                {/* <TableCell>{"Description"}</TableCell> */}
-                {/* <TableCell>{"Link"}</TableCell> */}
                 <TableCell>{"Source"}</TableCell>
 
                 <TableCell className="text-center">{"Published"}</TableCell>
