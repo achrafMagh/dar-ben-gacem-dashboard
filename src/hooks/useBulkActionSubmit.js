@@ -25,13 +25,6 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
   const { isBulkDrawerOpen, closeBulkDrawer, setIsUpdate } =
     useContext(SidebarContext);
 
-  // console.log(
-  //   'defaultCategory',
-  //   defaultCategory,
-  //   'selectedCategory',
-  //   selectedCategory
-  // );
-
   const {
     register,
     handleSubmit,
@@ -42,7 +35,6 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // console.log('data', data);
     try {
       // product data
       const productData = {
@@ -60,38 +52,13 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
         ids: ids,
         status: published ? "show" : "hide",
       };
-      // currencies data
-      const currenciesData = {
-        ids: ids,
-        enabled: published ? "show" : "hide",
-        live_exchange_rates: published2 ? "show" : "hide",
-      };
+
       // category data
       const categoryData = {
         ids: ids,
         parentId: checked,
         description: data.description,
         parentName: selectCategoryName,
-        status: published ? "show" : "hide",
-      };
-      // attributes data
-      const attributeData = {
-        ids: ids,
-        option: data.option,
-        status: published ? "show" : "hide",
-      };
-
-      const childAttributeData = {
-        ids: ids,
-        currentId: childId,
-        changeId: data.groupName,
-        status: published ? "show" : "hide",
-      };
-
-      const couponData = {
-        ids: ids,
-        startTime: data.startTime,
-        endTime: data.endTime,
         status: published ? "show" : "hide",
       };
 

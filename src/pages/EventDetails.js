@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 //internal import
@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 
 const EventDetails = () => {
   const { id } = useParams();
-  const { t } = useTranslation();
   const { handleUpdate } = useToggleDrawer();
 
   const { data, loading } = useAsync(() => EventServices.getEventById(id));
