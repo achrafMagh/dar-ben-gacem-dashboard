@@ -1,17 +1,13 @@
-import React, { useContext, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 //internal import
 import MainDrawer from "components/drawer/MainDrawer";
 import PressDrawer from "components/drawer/PressDrawer";
 import Loading from "components/preloader/Loading";
 import PageTitle from "components/Typography/PageTitle";
-import { SidebarContext } from "context/SidebarContext";
 import useAsync from "hooks/useAsync";
 import useToggleDrawer from "hooks/useToggleDrawer";
 import PressServices from "services/PressServices";
-import CategoryDrawer from "components/drawer/CategoryDrawer";
 
 const PressDetails = () => {
   const { id } = useParams();
@@ -23,7 +19,7 @@ const PressDetails = () => {
   return (
     <>
       <MainDrawer product>
-        <CategoryDrawer id={id} />
+        <PressDrawer id={id} />
       </MainDrawer>
 
       <PageTitle>{"Press details"}</PageTitle>
@@ -40,17 +36,6 @@ const PressDetails = () => {
                   alt={data?.data?.title}
                 />
               </div>
-              {/* <p className="text-base leading-6 text-gray-500 dark:text-gray-400 md:leading-7 pt-20">
-                {data?.data?.description.split(/\r?\n/).map((item, i) => {
-                  return (
-                    <li key={i}>
-                      <span className="text-gray-700 dark:text-gray-400">
-                        {item}
-                      </span>
-                    </li>
-                  );
-                })}
-              </p> */}
             </div>
             <div className="w-full flex flex-col p-5 md:p-8 text-left dark:text-gray-400">
               <div className="mb-5 block ">

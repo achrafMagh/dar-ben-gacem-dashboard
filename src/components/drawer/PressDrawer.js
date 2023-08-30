@@ -8,17 +8,16 @@ import TextAreaCom from "components/form/TextAreaCom";
 import Title from "components/form/Title";
 import Uploader from "components/image-uploader/Uploader";
 import useCategorySubmit from "hooks/useCategorySubmit";
-import usePressSubmit from "hooks/usePressSubmit";
 import Tree from "rc-tree";
 import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { useTranslation } from "react-i18next";
 //internal import
-
+import EventServices from "services/CategoryServices";
 import { notifyError } from "utils/toast";
 import { showingTranslateValue } from "utils/translate";
 
-const PressDrawer = ({ id, data, lang }) => {
+const CategoryDrawer = ({ id, data, lang }) => {
   const { t } = useTranslation();
 
   const {
@@ -36,7 +35,11 @@ const PressDrawer = ({ id, data, lang }) => {
     setSelectCategoryName,
     handleSelectLanguage,
     isSubmitting,
-  } = usePressSubmit(id, data);
+    imageFile,
+    setImageFile,
+    files,
+    setFiles,
+  } = useCategorySubmit(id, data);
 
   const STYLE = `
   .rc-tree-child-tree {
@@ -59,17 +62,18 @@ const PressDrawer = ({ id, data, lang }) => {
     onLeaveActive: () => ({ height: 0 }),
   };
 
-  const renderPresses = (presses) => {
-    let myPresses = [];
-    for (let press of presses) {
-      myPresses.push({
-        title: showingTranslateValue(press.name, lang),
-        key: press._id,
-        children: press.children.length > 0 && renderPresses(press.children),
+  const renderCategories = (categories) => {
+    let myCategories = [];
+    for (let category of categories) {
+      myCategories.push({
+        title: showingTranslateValue(category.name, lang),
+        key: category._id,
+        children:
+          category.children.length > 0 && renderCategories(category.children),
       });
     }
 
-    return myPresses;
+    return myCategories;
   };
 
   const findObject = (obj, target) => {
@@ -79,36 +83,6 @@ const PressDrawer = ({ id, data, lang }) => {
           (acc, obj) => acc ?? findObject(obj, target),
           undefined
         );
-  };
-
-  const handleSelect = async (key) => {
-    // console.log('key', key, 'id', id);
-    if (key === undefined) return;
-    if (id) {
-      /*  const parentCategoryId = await CategoryServices.getCategoryById(key);
-
-      if (id === key) {
-        return notifyError("This can't be select as a parent category!");
-      } else if (id === parentCategoryId.parentId) {
-        return notifyError("This can't be select as a parent category!");
-      } else {
-        if (key === undefined) return;
-        setChecked(key);
-
-        const obj = data[0];
-        const result = findObject(obj, key);
-
-        setSelectCategoryName(showingTranslateValue(result?.name, lang));
-      }
-    } else {
-      if (key === undefined) return;
-      setChecked(key);
-
-      const obj = data[0];
-      const result = findObject(obj, key);
-
-      setSelectCategoryName(showingTranslateValue(result?.name, lang)); */
-    }
   };
 
   return (
@@ -135,21 +109,51 @@ const PressDrawer = ({ id, data, lang }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-6 flex-grow scrollbar-hide w-full max-h-full pb-40">
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label={t("Name")} />
+              <LabelArea label={"Title"} />
               <div className="col-span-8 sm:col-span-4">
                 <InputArea
                   register={register}
-                  label="Category title"
-                  name="name"
+                  label="Press title"
+                  name="title"
                   type="text"
-                  placeholder={t("ParentCategoryPlaceholder")}
+                  placeholder={"Press Title"}
                 />
-                <Error errorName={errors.name} />
+                <Error errorName={errors.title} />
               </div>
             </div>
 
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label={t("Description")} />
+              <LabelArea label={"Source"} />
+              <div className="col-span-8 sm:col-span-4">
+                <InputArea
+                  required
+                  register={register}
+                  label="Source"
+                  name="source"
+                  type="text"
+                  placeholder="Press source"
+                />
+                <Error errorName={errors.source} />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+              <LabelArea label={"Link"} />
+              <div className="col-span-8 sm:col-span-4">
+                <InputArea
+                  required
+                  register={register}
+                  label="Link"
+                  name="link"
+                  type="text"
+                  placeholder="Press link"
+                />
+                <Error errorName={errors.link} />
+              </div>
+            </div>
+
+            {/* <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
+              <LabelArea label={"Description"} />
               <div className="col-span-8 sm:col-span-4">
                 <TextAreaCom
                   required
@@ -157,54 +161,29 @@ const PressDrawer = ({ id, data, lang }) => {
                   label="Description"
                   name="description"
                   type="text"
-                  placeholder="Category Description"
+                  placeholder="Press description"
                 />
                 <Error errorName={errors.description} />
               </div>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label={t("ParentCategory")} />
-              <div className="col-span-8 sm:col-span-4 relative">
-                <Input
-                  readOnly
-                  {...register(`parent`, {
-                    required: false,
-                  })}
-                  name="parent"
-                  value={selectCategoryName ? selectCategoryName : "Home"}
-                  placeholder={t("ParentCategory")}
-                  type="text"
-                  className="border h-12 w-full text-sm focus:outline-none block bg-gray-100 dark:bg-white border-transparent focus:bg-white"
-                />
-
-                <div className="draggable-demo capitalize">
-                  <style dangerouslySetInnerHTML={{ __html: STYLE }} />
-                  <Tree
-                    expandAction="click"
-                    treeData={renderPresses(data)}
-                    selectedKeys={[checked]}
-                    onSelect={(v) => handleSelect(v[0])}
-                    motion={motion}
-                    animation="slide-up"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label={t("CategoryIcon")} />
+              <LabelArea label="Press Image" />
               <div className="col-span-8 sm:col-span-4">
                 <Uploader
                   imageUrl={imageUrl}
                   setImageUrl={setImageUrl}
                   folder="category"
+                  imageFile={imageFile}
+                  setImageFile={setImageFile}
+                  files={files}
+                  setFiles={setFiles}
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-              <LabelArea label={t("Published")} />
+              <LabelArea label={"Published"} />
               <div className="col-span-8 sm:col-span-4">
                 <SwitchToggle
                   handleProcess={setPublished}
@@ -214,11 +193,11 @@ const PressDrawer = ({ id, data, lang }) => {
             </div>
           </div>
 
-          <DrawerButton id={id} title="Category" isSubmitting={isSubmitting} />
+          <DrawerButton id={id} title="Press" isSubmitting={isSubmitting} />
         </form>
       </Scrollbars>
     </>
   );
 };
 
-export default PressDrawer;
+export default CategoryDrawer;

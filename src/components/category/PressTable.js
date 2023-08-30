@@ -2,15 +2,12 @@ import { Avatar, TableBody, TableCell, TableRow } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
 
 //internal import
-import { IoRemoveSharp } from "react-icons/io5";
 import useToggleDrawer from "hooks/useToggleDrawer";
 import DeleteModal from "components/modal/DeleteModal";
 import MainDrawer from "components/drawer/MainDrawer";
-import CategoryDrawer from "components/drawer/CategoryDrawer";
-import CheckBox from "components/form/CheckBox";
+import PressDrawer from "components/drawer/PressDrawer";
 import ShowHideButton from "components/table/ShowHideButton";
 import EditDeleteButton from "components/table/EditDeleteButton";
-import { showingTranslateValue } from "utils/translate";
 import Tooltip from "components/tooltip/Tooltip";
 import { FiZoomIn } from "react-icons/fi";
 
@@ -18,20 +15,11 @@ const PressTable = ({
   data,
   lang,
   isCheck,
-  categories,
+  presses,
   setIsCheck,
   useParamId,
-  showChild,
 }) => {
   const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
-
-  const handleClick = (e) => {
-    const { id, checked } = e.target;
-    setIsCheck([...isCheck, id]);
-    if (!checked) {
-      setIsCheck(isCheck.filter((item) => item !== id));
-    }
-  };
 
   return (
     <>
@@ -40,21 +28,21 @@ const PressTable = ({
       )}
 
       <MainDrawer>
-        <CategoryDrawer id={serviceId} data={data} lang={lang} />
+        <PressDrawer id={serviceId} data={data} lang={lang} />
       </MainDrawer>
 
       <TableBody>
-        {categories?.map((category) => (
-          <TableRow key={category._id}>
+        {presses?.map((press) => (
+          <TableRow key={press._id}>
             <TableCell className="font-semibold uppercase text-xs h-full">
-              {category?._id?.substring(20, 24)}
+              {press?._id?.substring(20, 24)}
             </TableCell>
             <TableCell>
-              {category?.image ? (
+              {press?.image ? (
                 <Avatar
                   className="hidden mr-3 md:block bg-gray-50 p-1"
-                  src={process.env.REACT_APP_UPLOAD_URL + "/" + category.image}
-                  alt={category?.image}
+                  src={process.env.REACT_APP_UPLOAD_URL + "/" + press.image}
+                  alt={press?.image}
                 />
               ) : (
                 <Avatar
@@ -64,24 +52,17 @@ const PressTable = ({
                 />
               )}
             </TableCell>
-            <TableCell className="text-sm">{category?.title}</TableCell>
-            {/* <TableCell className="text-sm w-10 h-8">
-              {category?.description}
-            </TableCell> */}
-            {/* <TableCell className="text-sm ">{category?.link}</TableCell> */}
-            <TableCell className="text-sm">{category?.source}</TableCell>
+            <TableCell className="text-sm">{press?.title}</TableCell>
+
+            <TableCell className="text-sm">{press?.source}</TableCell>
 
             <TableCell className="text-center">
-              <ShowHideButton
-                id={category._id}
-                category
-                status={category.isPublished}
-              />
+              <ShowHideButton id={press._id} press status={press.isPublished} />
             </TableCell>
             <TableCell>
               <div className="flex justify-end items-center">
                 <Link
-                  to={`/press/${category?._id}`}
+                  to={`/press/${press?._id}`}
                   className="p-2 text-gray-400 hover:text-green-600"
                 >
                   <Tooltip
@@ -92,13 +73,11 @@ const PressTable = ({
                   />
                 </Link>
                 <EditDeleteButton
-                  id={category?._id}
-                  parent={category}
+                  id={press?._id}
                   isCheck={isCheck}
-                  children={category?.children}
                   handleUpdate={handleUpdate}
                   handleModalOpen={handleModalOpen}
-                  title={category?.title || "press"}
+                  title={press?.title || "press"}
                 />
               </div>
             </TableCell>

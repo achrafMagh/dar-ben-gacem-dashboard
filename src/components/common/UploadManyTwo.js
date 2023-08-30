@@ -95,35 +95,6 @@ const UploadManyTwo = ({
           setLoadingExport({ name: "json", status: true });
         });
     }
-    if (location.pathname === "/categories") {
-      exportFromJSON({
-        data: exportData,
-        fileName: "categories",
-        exportType: exportFromJSON.types.json,
-      });
-    }
-    if (location.pathname === "/attributes") {
-      exportFromJSON({
-        data: exportData,
-        fileName: "attributes",
-        exportType: exportFromJSON.types.json,
-      });
-    }
-
-    if (location.pathname === "/coupons") {
-      exportFromJSON({
-        data: exportData,
-        fileName: "coupons",
-        exportType: exportFromJSON.types.json,
-      });
-    }
-    if (location.pathname === "/customers") {
-      exportFromJSON({
-        data: exportData,
-        fileName: "customers",
-        exportType: exportFromJSON.types.json,
-      });
-    }
   };
 
   useEffect(() => {

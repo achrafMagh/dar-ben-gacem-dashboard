@@ -25,23 +25,18 @@ import DeleteModal from "components/modal/DeleteModal";
 import BulkActionDrawer from "components/drawer/BulkActionDrawer";
 import PageTitle from "components/Typography/PageTitle";
 import MainDrawer from "components/drawer/MainDrawer";
-import CategoryDrawer from "components/drawer/CategoryDrawer";
 import PressDrawer from "components/drawer/PressDrawer";
-import UploadManyTwo from "components/common/UploadManyTwo";
-import SwitchToggleChildCat from "components/form/SwitchToggleChildCat";
 import TableLoading from "components/preloader/TableLoading";
-import CheckBox from "components/form/CheckBox";
 import PressTable from "components/category/PressTable";
 import NotFound from "components/table/NotFound";
 
 const Press = () => {
   const { toggleDrawer, lang } = useContext(SidebarContext);
 
-  const { data, loading } = useAsync(PressServices.getAllPresses);
-  const { data: getAllPress } = useAsync(PressServices.getAllPresses);
+  const { data, loading } = useAsync(PressServices.getAllPress);
+  //const { data: getAllCategories } = useAsync(EventServices.getAllCategories);
 
-  const { handleDeleteMany, allId, handleUpdateMany, serviceId } =
-    useToggleDrawer();
+  const { allId, serviceId } = useToggleDrawer();
 
   const { t } = useTranslation();
 
@@ -58,7 +53,8 @@ const Press = () => {
     handleSelectFile,
     handleUploadMultiple,
     handleRemoveSelectFile,
-  } = useFilter(data);
+    searchRef,
+  } = useFilter(data ? data.data : []);
 
   // react hooks
   const [isCheckAll, setIsCheckAll] = useState(false);
@@ -90,70 +86,6 @@ const Press = () => {
         <PressDrawer id={serviceId} data={data} lang={lang} />
       </MainDrawer>
 
-      <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 mb-5">
-        <CardBody className="">
-          {/* <div className="flex md:flex-row flex-col gap-3 justify-end items-end"> */}
-          <form
-            onSubmit={handleSubmitCategory}
-            className="py-3  grid gap-4 lg:gap-6 xl:gap-6  xl:flex"
-          >
-            {/* </div> */}
-            <div className="flex justify-start w-1/2 xl:w-1/2 md:w-full">
-              <UploadManyTwo
-                title="Categories"
-                exportData={getAllPress}
-                filename={filename}
-                isDisabled={isDisabled}
-                handleSelectFile={handleSelectFile}
-                handleUploadMultiple={handleUploadMultiple}
-                handleRemoveSelectFile={handleRemoveSelectFile}
-              />
-            </div>
-
-            <div className="lg:flex  md:flex xl:justify-end xl:w-1/2  md:w-full md:justify-start flex-grow-0">
-              <div className="w-full md:w-40 lg:w-40 xl:w-40 mr-3 mb-3 lg:mb-0">
-                <Button
-                  disabled={isCheck.length < 1}
-                  onClick={() => handleUpdateMany(isCheck)}
-                  className="w-full rounded-md h-12 text-gray-600 btn-gray"
-                >
-                  <span className="mr-2">
-                    <FiEdit />
-                  </span>
-
-                  {t("BulkAction")}
-                </Button>
-              </div>
-              <div className="w-full md:w-32 lg:w-32 xl:w-32  mr-3 mb-3 lg:mb-0">
-                <Button
-                  disabled={isCheck.length < 1}
-                  onClick={() => handleDeleteMany(isCheck)}
-                  className="w-full rounded-md h-12 bg-red-500 disabled  btn-red"
-                >
-                  <span className="mr-2">
-                    <FiTrash2 />
-                  </span>
-
-                  {t("Delete")}
-                </Button>
-              </div>
-              <div className="w-full md:w-48 lg:w-48 xl:w-48">
-                <Button
-                  onClick={toggleDrawer}
-                  className="rounded-md h-12 w-full"
-                >
-                  <span className="mr-2">
-                    <FiPlus />
-                  </span>
-
-                  {t("AddCategory")}
-                </Button>
-              </div>
-            </div>
-          </form>
-        </CardBody>
-      </Card>
-
       <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 rounded-t-lg rounded-0 mb-4">
         <CardBody>
           <form
@@ -162,22 +94,24 @@ const Press = () => {
           >
             <div className="flex-grow-0 md:flex-grow lg:flex-grow xl:flex-grow">
               <Input
-                ref={categoryRef}
+                ref={searchRef}
                 type="search"
                 className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 border-transparent focus:bg-white"
-                placeholder={t("SearchCategory")}
+                placeholder={"Search Press"}
               />
+            </div>
+            <div className="w-full md:w-48 lg:w-48 xl:w-48">
+              <Button onClick={toggleDrawer} className="rounded-md h-12 w-full">
+                <span className="mr-2">
+                  <FiPlus />
+                </span>
+                {"Add Press"}
+              </Button>
             </div>
           </form>
         </CardBody>
       </Card>
 
-      <SwitchToggleChildCat
-        title=" "
-        handleProcess={setShowChild}
-        processOption={showChild}
-        name={showChild}
-      />
       {loading ? (
         <TableLoading row={12} col={6} width={190} height={20} />
       ) : serviceData?.length !== 0 ? (
@@ -185,34 +119,23 @@ const Press = () => {
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>
-                  <CheckBox
-                    type="checkbox"
-                    name="selectAll"
-                    id="selectAll"
-                    handleClick={handleSelectAll}
-                    isChecked={isCheckAll}
-                  />
-                </TableCell>
+                <TableCell>{"ID"}</TableCell>
+                <TableCell>{"Image"}</TableCell>
+                <TableCell>{"Title"}</TableCell>
+                {/* <TableCell>{"Description"}</TableCell> */}
+                {/* <TableCell>{"Link"}</TableCell> */}
+                <TableCell>{"Source"}</TableCell>
 
-                <TableCell>{t("catIdTbl")}</TableCell>
-                <TableCell>{t("catIconTbl")}</TableCell>
-                <TableCell>{t("CatTbName")}</TableCell>
-                <TableCell>{t("CatTbDescription")}</TableCell>
-                <TableCell className="text-center">
-                  {t("catPublishedTbl")}
-                </TableCell>
-                <TableCell className="text-right">
-                  {t("catActionsTbl")}
-                </TableCell>
+                <TableCell className="text-center">{"Published"}</TableCell>
+                <TableCell className="text-right">{"Actions"}</TableCell>
               </tr>
             </TableHeader>
 
             <PressTable
-              data={data}
+              data={data.data}
               lang={lang}
               isCheck={isCheck}
-              categories={dataTable}
+              presses={dataTable}
               setIsCheck={setIsCheck}
               showChild={showChild}
             />
@@ -228,7 +151,7 @@ const Press = () => {
           </TableFooter>
         </TableContainer>
       ) : (
-        <NotFound title="Sorry, There are no categories right now." />
+        <NotFound title="Sorry, There are no press releases right now." />
       )}
     </>
   );

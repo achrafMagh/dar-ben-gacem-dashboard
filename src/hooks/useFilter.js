@@ -383,21 +383,6 @@ const useFilter = (data) => {
 
         let data = [];
 
-        if (location.pathname === "/categories") {
-          data = json.map((value) => {
-            return {
-              _id: value._id,
-              id: value.id,
-              status: value.status,
-              name: JSON.parse(value.name),
-              description: JSON.parse(value.description),
-              parentName: value.parentName,
-              parentId: value.parentId,
-              icon: value.icon,
-            };
-          });
-        }
-
         setSelectedFile(data);
       };
       fileReader.readAsText(file);
@@ -421,33 +406,6 @@ const useFilter = (data) => {
         const json = XLSX.utils.sheet_to_json(ws);
 
         let data = [];
-
-        if (location.pathname === "/categories") {
-          data = json.map((value) => {
-            return {
-              _id: value._id,
-              id: value.id,
-              status: value.status,
-              name: JSON.parse(value.name),
-              description: JSON.parse(value.description),
-              parentName: value.parentName,
-              parentId: value.parentId,
-              icon: value.icon,
-            };
-          });
-        }
-        if (location.pathname === "/attributes") {
-          data = json.map((value) => {
-            return {
-              status: value.status,
-              title: JSON.parse(value.title),
-              name: JSON.parse(value.name),
-              variants: JSON.parse(value.variants),
-              option: value.option,
-              type: value.type,
-            };
-          });
-        }
 
         setSelectedFile(data);
       };

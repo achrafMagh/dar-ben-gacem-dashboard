@@ -10,7 +10,7 @@ import CategoryServices from "services/CategoryServices";
 import EventServices from "services/EventServices";
 import { notifyError, notifySuccess } from "utils/toast";
 
-const ShowHideButton = ({ id, status, category, currencyStatusName }) => {
+const ShowHideButton = ({ id, status, press, currencyStatusName }) => {
   // console.log('from staf')
   const location = useLocation();
   const { setIsUpdate } = useContext(SidebarContext);
@@ -24,7 +24,7 @@ const ShowHideButton = ({ id, status, category, currencyStatusName }) => {
         newStatus = "show";
       }
 
-      if (location.pathname === "/categories" || category) {
+      if (location.pathname === "/categories" || press) {
         const res = await CategoryServices.publishPress(id, {
           isPublished: status,
         });
@@ -32,7 +32,7 @@ const ShowHideButton = ({ id, status, category, currencyStatusName }) => {
         notifySuccess(res.message);
       }
 
-      if (location.pathname === "/press" || category) {
+      if (location.pathname === "/press" || press) {
         const res = await CategoryServices.publishPress(id, {
           isPublished: status,
         });

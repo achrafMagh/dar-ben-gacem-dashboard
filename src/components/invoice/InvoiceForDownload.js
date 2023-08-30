@@ -537,7 +537,7 @@ const InvoiceForDownload = ({ data, currency, globalSetting }) => {
           <View style={styles.invoiceThird}>
             <View style={{ width: "25%", alignItems: "baseline" }}>
               <Text style={styles.title}>{t("InvoicepaymentMethod")}</Text>
-              <Text style={{ fontSize: 10, color: "#0e9f6e" }}>
+              <Text style={{ fontSize: 10, color: "#00a6b6" }}>
                 {data?.paymentMethod}
               </Text>
             </View>

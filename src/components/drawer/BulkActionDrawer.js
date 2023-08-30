@@ -1,6 +1,5 @@
 import ReactTagInput from "@pathofdev/react-tag-input";
 import { Button, Input, Select } from "@windmill/react-ui";
-import ParentCategory from "components/category/ParentCategory";
 import Error from "components/form/Error";
 import LabelArea from "components/form/LabelArea";
 import SwitchToggle from "components/form/SwitchToggle";
@@ -141,18 +140,6 @@ const BulkActionDrawer = ({
               <div className="px-6 pt-8 flex-grow w-full h-full max-h-full pb-40 md:pb-32 lg:pb-32 xl:pb-32">
                 {title === "Products" && (
                   <>
-                    <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
-                      <LabelArea label="Categorys" />
-                      <div className="col-span-8 sm:col-span-4">
-                        <ParentCategory
-                          lang={lang}
-                          selectedCategory={selectedCategory}
-                          setSelectedCategory={setSelectedCategory}
-                          setDefaultCategory={setDefaultCategory}
-                        />
-                      </div>
-                    </div>
-
                     <div className="grid grid-cols-6 gap-3 md:gap-5 xl:gap-6 lg:gap-6 mb-6">
                       <LabelArea label="Default Category" />
                       <div className="col-span-8 sm:col-span-4">

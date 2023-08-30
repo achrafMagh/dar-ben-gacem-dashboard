@@ -35,7 +35,7 @@ const SwitchToggleChildCat = ({ title, handleProcess, processOption }) => {
             width={115}
             height={28}
             handleDiameter={26}
-            offColor="#0e9f6e"
+            offColor="#00a6b6"
             onColor="#2F855A"
             checkedIcon={
               <div

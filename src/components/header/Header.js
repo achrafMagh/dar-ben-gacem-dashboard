@@ -36,45 +36,6 @@ const Header = () => {
   const pRef = useRef();
   const nRef = useRef();
 
-  const currentLanguageCode = cookies.get("i18next") || "en";
-  const { t } = useTranslation();
-
-  const handleLogOut = () => {
-    dispatch({ type: "USER_LOGOUT" });
-    Cookies.remove("adminInfo");
-    reduxDisPatch(emptySideBarMenu());
-    reduxDisPatch(emptySetting());
-    window.location.replace(
-      `https://${process.env.REACT_APP_ADMIN_DOMAIN}/login`
-    );
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!pRef?.current?.contains(e.target)) {
-        setProfileOpen(false);
-      }
-      if (!nRef?.current?.contains(e.target)) {
-        setNotificationOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-  }, [pRef, nRef]);
-
-  const handleNotificationOpen = () => {
-    setNotificationOpen(!notificationOpen);
-    setProfileOpen(false);
-  };
-  const handleProfileOpen = () => {
-    setProfileOpen(!profileOpen);
-    setNotificationOpen(false);
-  };
-
-  // const onChange = (event) => {
-  //     i18next.changeLanguage(event.target.value);
-
-  // }
-
   return (
     <>
       <header className="z-30 py-4 bg-white shadow-sm dark:bg-gray-800">
