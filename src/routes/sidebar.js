@@ -1,3 +1,5 @@
+import { FiGrid, FiSlack } from "react-icons/fi";
+
 import { BsNewspaper, BsCalendarEvent } from "react-icons/bs";
 
 /**
