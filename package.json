@@ -75,6 +75,9 @@
     "@react-pdf/font": "2.2.0",
     "react-scripts/**/react-error-overlay": "6.0.9"
   },
+  "engines": {
+    "node": ">=14 <15"
+  },
   "scripts": {
     "tailwind:dev": "tailwindcss build src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
     "tailwind:build": "cross-env NODE_ENV=production postcss src/assets/css/tailwind.css -o src/assets/css/tailwind.output.css",
