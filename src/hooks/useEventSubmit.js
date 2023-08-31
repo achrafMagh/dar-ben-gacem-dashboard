@@ -29,8 +29,6 @@ const useEventSubmit = (id, data) => {
     formState: { errors },
   } = useForm();
 
-  // console.log("lang", lang, language);
-
   const onSubmit = async (data) => {
     const { title, description, startDate, location, isPublished } = data;
 
@@ -42,8 +40,6 @@ const useEventSubmit = (id, data) => {
     formData.append("image", imageFile);
     formData.append("location", location);
     formData.append("isPublished", published);
-
-    console.log(description);
 
     if (id) {
       const res = await EventServices.updateEvent(id, formData);

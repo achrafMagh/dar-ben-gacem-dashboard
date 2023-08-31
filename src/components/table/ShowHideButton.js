@@ -11,10 +11,8 @@ import EventServices from "services/EventServices";
 import { notifyError, notifySuccess } from "utils/toast";
 
 const ShowHideButton = ({ id, status, press, currencyStatusName }) => {
-  // console.log('from staf')
   const location = useLocation();
   const { setIsUpdate } = useContext(SidebarContext);
-  //  console.log('coupns')
   const handleChangeStatus = async (id) => {
     try {
       let newStatus;

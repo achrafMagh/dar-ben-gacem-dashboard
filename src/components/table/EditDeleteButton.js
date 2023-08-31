@@ -14,7 +14,6 @@ const EditDeleteButton = ({
   product,
 }) => {
   const { t } = useTranslation();
-  // console.log('edite delet button')
   return (
     <>
       <div className="flex justify-end text-right">

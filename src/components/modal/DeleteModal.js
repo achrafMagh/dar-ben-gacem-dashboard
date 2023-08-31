@@ -51,11 +51,9 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
 
       if (location.pathname === "/categories" || category) {
         if (ids) {
-          //  console.log('delete modal categorices',ids)
           const res = await CategoryServices.deleteManyCategory({
             ids: ids,
           });
-          //  console.log('delete many category res',res)
           setIsUpdate(true);
           notifySuccess(res.message);
           setIsCheck([]);
@@ -68,7 +66,6 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
             setIsSubmitting(false);
             return closeModal();
           }
-          // console.log('delete modal open',id)
           const res = await CategoryServices.deleteCategory(id);
           setIsUpdate(true);
           notifySuccess(res.message);

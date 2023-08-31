@@ -10,7 +10,6 @@ import { showingTranslateValue } from "utils/translate";
 
 const SelectCategory = ({ setCategory, lang }) => {
   const { data } = useAsync(EventServices.getAllCategories);
-  // console.log('data category',data)
   const { t } = useTranslation();
   return (
     <>

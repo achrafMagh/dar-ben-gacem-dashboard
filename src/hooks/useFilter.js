@@ -436,7 +436,6 @@ const useFilter = (data) => {
   };
 
   const handleRemoveSelectFile = (e) => {
-    // console.log('remove');
     setFileName("");
     setSelectedFile([]);
     setTimeout(() => setIsDisable(false), 1000);

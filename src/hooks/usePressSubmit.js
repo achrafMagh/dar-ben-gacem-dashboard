@@ -25,8 +25,6 @@ const usePressSubmit = (id, data) => {
     formState: { errors },
   } = useForm();
 
-  // console.log("lang", lang, language);
-
   const onSubmit = async ({ title, description, source, link, date }) => {
     try {
       setIsSubmitting(true);

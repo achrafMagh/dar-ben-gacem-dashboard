@@ -27,8 +27,6 @@ const useCategorySubmit = (id, data) => {
     formState: { errors },
   } = useForm();
 
-  // console.log("lang", lang, language);
-
   const onSubmit = async (data) => {
     const { title, description, source, link, isPublished } = data;
 

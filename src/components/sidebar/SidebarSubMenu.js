@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import React, { useState } from "react";
+import { NavLink, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   IoChevronDownOutline,
   IoChevronForwardOutline,
   IoRemoveSharp,
-} from 'react-icons/io5';
+} from "react-icons/io5";
 
 const SidebarSubMenu = ({ route }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  // console.log('route',route)
   const handleSubMenu = () => setOpen(!open);
 
   return (

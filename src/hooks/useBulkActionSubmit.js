@@ -25,13 +25,6 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
   const { isBulkDrawerOpen, closeBulkDrawer, setIsUpdate } =
     useContext(SidebarContext);
 
-  // console.log(
-  //   'defaultCategory',
-  //   defaultCategory,
-  //   'selectedCategory',
-  //   selectedCategory
-  // );
-
   const {
     register,
     handleSubmit,
@@ -96,7 +89,6 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
       };
 
       if (location.pathname === "/products") {
-        console.log("productData", productData);
         const res = await ProductServices.updateManyProducts(productData);
         setIsUpdate(true);
         notifySuccess(res.message);
@@ -113,7 +105,6 @@ const useBulkActionSubmit = (ids, lang = "en", childId) => {
         closeBulkDrawer();
       }
     } catch (err) {
-      console.log("err on bulk action", err);
       notifyError(err ? err?.response?.data?.message : err.message);
     }
   };
