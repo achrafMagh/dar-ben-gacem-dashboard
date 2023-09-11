@@ -17,7 +17,7 @@ const useLoginSubmit = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ name, email, verifyEmail, password, role }) => {
+  const onSubmit = ({ email, password }) => {
     setLoading(true);
     const cookieTimeOut = 0.5;
 
@@ -35,7 +35,7 @@ const useLoginSubmit = () => {
           }
         })
         .catch((err) => {
-          notifyError(err ? err.response.data.message : err.message);
+          notifyError("Login Failed! Please try again.");
           setLoading(false);
         });
     }

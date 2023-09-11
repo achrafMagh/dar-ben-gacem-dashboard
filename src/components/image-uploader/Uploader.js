@@ -33,8 +33,6 @@ const Uploader = ({
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: "image/*",
-    multiple: product ? true : false,
-    maxSize: 10485760,
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
       setImageFile(acceptedFiles[0]);
