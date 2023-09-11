@@ -2,7 +2,6 @@
   "name": "dar-bengacem-admin",
   "version": "0.1.0",
   "description": "Dar ben gacem admin dashboard",
-  "homepage": ".",
   "private": true,
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
