@@ -42,6 +42,7 @@ const MainModal = ({ id, title }) => {
       EventServices.deleteEvent(id)
         .then((res) => {
           setIsUpdate(true);
+          setServiceId("");
           notifySuccess(res.message);
         })
         .catch((err) => notifyError(err.message));

@@ -9,7 +9,6 @@ import { SidebarContext } from "context/SidebarContext";
 import AdminServices from "services/AdminServices";
 import CategoryServices from "services/CategoryServices";
 
-import ProductServices from "services/ProductServices";
 import EventServices from "services/EventServices";
 
 import { useState } from "react";
@@ -18,9 +17,8 @@ import useToggleDrawer from "hooks/useToggleDrawer";
 
 import { notifyError, notifySuccess } from "utils/toast";
 
-const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
+const DeleteModal = ({ id, ids, category, title, serviceId, setServiceId }) => {
   const { isModalOpen, closeModal, setIsUpdate } = useContext(SidebarContext);
-  const { setServiceId } = useToggleDrawer();
   const location = useLocation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,77 +26,16 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
   const handleDelete = async () => {
     try {
       setIsSubmitting(true);
-      if (location.pathname === "/products") {
-        if (ids) {
-          const res = await ProductServices.deleteManyProducts({
-            ids: ids,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setIsCheck([]);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        } else {
-          const res = await ProductServices.deleteProduct(id);
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        }
-      }
-
-      if (location.pathname === "/categories" || category) {
-        if (ids) {
-          const res = await CategoryServices.deleteManyCategory({
-            ids: ids,
-          });
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          setIsCheck([]);
-          setServiceId();
-          closeModal();
-          setIsSubmitting(false);
-        } else {
-          if (id === undefined || !id) {
-            notifyError("Please select a category first!");
-            setIsSubmitting(false);
-            return closeModal();
-          }
-          const res = await CategoryServices.deleteCategory(id);
-          setIsUpdate(true);
-          notifySuccess(res.message);
-          closeModal();
-          setServiceId();
-          setIsSubmitting(false);
-        }
-      } else if (
-        location.pathname === `/categories/${useParamId}` ||
-        category
-      ) {
-        // console.log('delete modal ')
-        if (id === undefined || !id) {
-          notifyError("Please select a category first!");
-          setIsSubmitting(false);
-          return closeModal();
-        }
-
-        const res = await CategoryServices.deleteCategory(id);
-        setIsUpdate(true);
-        notifySuccess(res.message);
-        closeModal();
-        setServiceId();
-        setIsSubmitting(false);
-      }
 
       if (location.pathname === "/events") {
         const res = await EventServices.deleteEvent(id);
+
         if (res.success === true) {
           notifySuccess("Event  deleted successfully!");
         }
         setIsUpdate(true);
-        setServiceId();
+        setServiceId("");
+
         closeModal();
         setIsSubmitting(false);
       }
@@ -109,14 +46,13 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
         if (res.success === true) {
           notifySuccess("Press  deleted successfully!");
         }
-        setServiceId();
+        setServiceId("");
         closeModal();
         setIsSubmitting(false);
       }
     } catch (err) {
       notifyError(err ? err?.response?.data?.message : err?.message);
-      setServiceId();
-      setIsCheck([]);
+      setServiceId("");
       closeModal();
       setIsSubmitting(false);
     }
@@ -124,9 +60,14 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
 
   const { t } = useTranslation();
 
+  const handleCloseModal = () => {
+    setServiceId("");
+    closeModal();
+  };
+
   return (
     <>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <ModalBody className="text-center custom-modal px-8 pt-6 pb-4">
           <span className="flex justify-center text-3xl mb-6 text-red-500">
             <FiTrash2 />
@@ -142,9 +83,9 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
           <Button
             className="w-full sm:w-auto hover:bg-white hover:border-gray-50"
             layout="outline"
-            onClick={closeModal}
+            onClick={handleCloseModal}
           >
-            {t("modalKeepBtn")}
+            No.
           </Button>
           <div className="flex justify-end">
             {isSubmitting ? (
@@ -160,12 +101,12 @@ const DeleteModal = ({ id, ids, setIsCheck, category, title, useParamId }) => {
                   height={10}
                 />{" "}
                 <span className="font-serif ml-2 font-light">
-                  {t("Processing")}
+                  Processing...
                 </span>
               </Button>
             ) : (
               <Button onClick={handleDelete} className="w-full h-12 sm:w-auto">
-                {t("modalDeletBtn")}
+                Confirm Delete
               </Button>
               // <button
               //   type="submit"

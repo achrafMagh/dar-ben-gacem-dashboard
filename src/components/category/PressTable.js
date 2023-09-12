@@ -19,12 +19,19 @@ const PressTable = ({
   setIsCheck,
   useParamId,
 }) => {
-  const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
+  const { title, serviceId, handleModalOpen, handleUpdate, setServiceId } =
+    useToggleDrawer();
 
   return (
     <>
       {isCheck?.length < 1 && (
-        <DeleteModal useParamId={useParamId} id={serviceId} title={title} />
+        <DeleteModal
+          id={serviceId}
+          useParamId={useParamId}
+          serviceId={serviceId}
+          setServiceId={setServiceId}
+          title={title}
+        />
       )}
 
       <MainDrawer>
@@ -76,7 +83,9 @@ const PressTable = ({
                   id={press?._id}
                   isCheck={isCheck}
                   handleUpdate={handleUpdate}
-                  handleModalOpen={handleModalOpen}
+                  handleModalOpen={() =>
+                    handleModalOpen(press?._id, press?.title)
+                  }
                   title={press?.title || "press"}
                 />
               </div>

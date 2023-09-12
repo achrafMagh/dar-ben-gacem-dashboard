@@ -24,6 +24,7 @@ const useLoginSubmit = () => {
     if (location.pathname === "/login") {
       AdminServices.loginAdmin({ email, password })
         .then((res) => {
+          //console.log(res);
           if (res) {
             setLoading(false);
             notifySuccess("Login Success!");

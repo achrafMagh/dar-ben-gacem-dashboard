@@ -23,12 +23,19 @@ const EventTable = ({
   setIsCheck,
   useParamId,
 }) => {
-  const { title, serviceId, handleModalOpen, handleUpdate } = useToggleDrawer();
+  const { title, serviceId, handleModalOpen, handleUpdate, setServiceId } =
+    useToggleDrawer();
 
   return (
     <>
       {isCheck?.length < 1 && (
-        <DeleteModal useParamId={useParamId} id={serviceId} title={title} />
+        <DeleteModal
+          id={serviceId}
+          serviceId={serviceId}
+          setServiceId={setServiceId}
+          useParamId={useParamId}
+          title={title}
+        />
       )}
 
       <MainDrawer>
@@ -86,12 +93,15 @@ const EventTable = ({
                   />
                 </Link>
                 <EditDeleteButton
-                  id={event?._id}
-                  parent={event}
+                  id={serviceId}
+                  //serviceId={serviceId}
+                  //setServiceId={setServiceId}
                   isCheck={isCheck}
                   children={event?.children}
                   handleUpdate={handleUpdate}
-                  handleModalOpen={handleModalOpen}
+                  handleModalOpen={() =>
+                    handleModalOpen(event?._id, event?.title)
+                  }
                   title={event?.title || "event"}
                 />
               </div>
