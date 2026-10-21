@@ -12,7 +12,7 @@ import {
 } from "@windmill/react-ui";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 
 //internal import
 
@@ -42,48 +42,32 @@ const Press = () => {
 
   const {
     handleSubmitCategory,
-    categoryRef,
     totalResults,
     resultsPerPage,
     dataTable,
     serviceData,
     handleChangePage,
-    filename,
-    isDisabled,
-    handleSelectFile,
-    handleUploadMultiple,
-    handleRemoveSelectFile,
     searchRef,
   } = useFilter(data ? data.data : []);
 
   // react hooks
-  const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
-  const [showChild, setShowChild] = useState(false);
-
-  const handleSelectAll = () => {
-    setIsCheckAll(!isCheckAll);
-    setIsCheck(data[0]?.children.map((li) => li._id));
-    if (isCheckAll) {
-      setIsCheck([]);
-    }
-  };
 
   return (
     <>
-      <PageTitle>{"Press"}</PageTitle>
+      <PageTitle>{t("Press")}</PageTitle>
       <DeleteModal ids={allId} setIsCheck={setIsCheck} />
 
       <BulkActionDrawer
         ids={allId}
-        title="Presses"
+          title={t("Presses")}
         lang={lang}
         data={data}
         isCheck={isCheck}
       />
 
       <MainDrawer>
-        <PressDrawer id={serviceId} data={data} lang={lang} />
+        <PressDrawer id={serviceId} data={data} />
       </MainDrawer>
 
       <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 rounded-t-lg rounded-0 mb-4">
@@ -97,7 +81,7 @@ const Press = () => {
                 ref={searchRef}
                 type="search"
                 className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 border-transparent focus:bg-white"
-                placeholder={"Search Press"}
+                placeholder={t("SearchPress")}
               />
             </div>
             <div className="w-full md:w-48 lg:w-48 xl:w-48">
@@ -105,7 +89,7 @@ const Press = () => {
                 <span className="mr-2">
                   <FiPlus />
                 </span>
-                {"Add Press"}
+                {t("AddPress")}
               </Button>
             </div>
           </form>
@@ -119,15 +103,15 @@ const Press = () => {
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>{"ID"}</TableCell>
-                <TableCell>{"Image"}</TableCell>
-                <TableCell>{"Title"}</TableCell>
+                <TableCell>{t("Id")}</TableCell>
+                <TableCell>{t("Image")}</TableCell>
+                <TableCell>{t("Title")}</TableCell>
                 {/* <TableCell>{"Description"}</TableCell> */}
                 {/* <TableCell>{"Link"}</TableCell> */}
-                <TableCell>{"Source"}</TableCell>
+                <TableCell>{t("Source")}</TableCell>
 
-                <TableCell className="text-center">{"Published"}</TableCell>
-                <TableCell className="text-right">{"Actions"}</TableCell>
+                <TableCell className="text-center">{t("Published")}</TableCell>
+                <TableCell className="text-right">{t("Actions")}</TableCell>
               </tr>
             </TableHeader>
 
@@ -137,7 +121,7 @@ const Press = () => {
               isCheck={isCheck}
               presses={dataTable}
               setIsCheck={setIsCheck}
-              showChild={showChild}
+              showChild={false}
             />
           </Table>
 
@@ -151,7 +135,7 @@ const Press = () => {
           </TableFooter>
         </TableContainer>
       ) : (
-        <NotFound title="Sorry, There are no press releases right now." />
+        <NotFound title={t("NoPressFound")} />
       )}
     </>
   );

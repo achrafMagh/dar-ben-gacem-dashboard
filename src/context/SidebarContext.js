@@ -46,10 +46,11 @@ export const SidebarProvider = ({ children }) => {
   const closeModal = () => setIsModalOpen(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const handleLanguageChange = (lang) => {
-    Cookies.set("i18next", lang);
-    i18n.changeLanguage(lang);
-    setLang(lang);
+  const handleLanguageChange = (nextLang) => {
+    const normalizedLang = nextLang === "fr" ? "fr" : "en";
+    Cookies.set("i18next", normalizedLang, { expires: 365, path: "/" });
+    i18n.changeLanguage(normalizedLang);
+    setLang(normalizedLang);
   };
 
   const handleChangePage = (p) => {
@@ -64,13 +65,12 @@ export const SidebarProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const lang = Cookies.get("i18next");
-    if (lang === "en-US" || lang === "en-GB") {
-      setLang("en");
-    } else {
-      setLang(Cookies.get("i18next"));
-    }
-  }, [windowDimension]);
+    const current = i18n.resolvedLanguage || Cookies.get("i18next") || "en";
+    const normalized = current.startsWith("fr") ? "fr" : "en";
+    setLang(normalized);
+    i18n.changeLanguage(normalized);
+    Cookies.set("i18next", normalized, { expires: 365, path: "/" });
+  }, [i18n]);
 
   useEffect(() => {
     function handleResize() {

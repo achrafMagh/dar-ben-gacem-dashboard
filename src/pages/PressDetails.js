@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 //internal import
 import MainDrawer from "components/drawer/MainDrawer";
@@ -10,6 +11,7 @@ import useToggleDrawer from "hooks/useToggleDrawer";
 import PressServices from "services/PressServices";
 
 const PressDetails = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
 
   const { handleUpdate } = useToggleDrawer();
@@ -22,7 +24,7 @@ const PressDetails = () => {
         <PressDrawer id={id} />
       </MainDrawer>
 
-      <PageTitle>{"Press details"}</PageTitle>
+      <PageTitle>{t("PressDetails")}</PageTitle>
 
       {loading ? (
         <Loading loading={loading} />
@@ -41,15 +43,14 @@ const PressDetails = () => {
               <div className="mb-5 block ">
                 <div className="font-serif font-semibold py-1 text-sm">
                   <p className="text-sm text-gray-500 pr-4">
-                    Status:{" "}
+                    {t("Status")}:{" "}
                     {data.data.isPublished ? (
                       <span className="text-green-400">
-                        This press is published
+                        {t("PressPublished")}
                       </span>
                     ) : (
                       <span className="text-red-400">
-                        {" "}
-                        This event is not published
+                        {t("PressNotPublished")}
                       </span>
                     )}
                   </p>
@@ -60,18 +61,19 @@ const PressDetails = () => {
 
                 <div className="pt-10 ">
                   <span className="font-semibold text-lg dark:text-gray-400">
-                    Source:{" "}
+                    {t("Source")}:{" "}
                   </span>{" "}
                   {data?.data?.source}
                 </div>
                 <div className="pt-2 dark:text-gray-400">
-                  <span className="font-semibold text-lg">Link:</span>{" "}
+                  <span className="font-semibold text-lg">{t("Link")}:</span>{" "}
                   <a
                     href={data?.data?.link}
                     target="_blank"
+                    rel="noreferrer"
                     className="underline hover:font-semibold"
                   >
-                    Press link
+                    {t("PressLink")}
                   </a>
                 </div>
               </div>
@@ -81,7 +83,7 @@ const PressDetails = () => {
                   onClick={() => handleUpdate(id)}
                   className="cursor-pointer leading-5 transition-colors duration-150 font-medium text-sm focus:outline-none px-5 py-2 rounded-md text-white bg-green-500 border border-transparent active:bg-green-600 hover:bg-green-600 focus:ring focus:ring-purple-300"
                 >
-                  Edit Press
+                  {t("EditPress")}
                 </button>
               </div>
             </div>

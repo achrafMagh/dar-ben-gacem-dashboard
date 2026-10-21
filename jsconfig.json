@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "checkJs": false,
+    "skipLibCheck": true,
+    "types": []
   },
   "include": ["src"]
 }

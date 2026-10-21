@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
-import { translationDe, translationEn } from "./pages/Translations";
+import { translationEn, translationFr } from "./pages/Translations";
 
 i18n
   .use(LanguageDetector)
@@ -10,10 +10,12 @@ i18n
   .init({
     resources: {
       en: { translation: translationEn },
-      de: { translation: translationDe },
+      fr: { translation: translationFr },
     },
-    debug: true,
+    debug: false,
     //lng: "en",
+    supportedLngs: ["en", "fr"],
+    load: "languageOnly",
     fallbackLng: "en",
     nonExplicitSupportedLngs: true,
 
@@ -25,3 +27,5 @@ i18n
       caches: ["cookie"],
     },
   });
+
+export default i18n;

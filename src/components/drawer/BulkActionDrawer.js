@@ -13,6 +13,7 @@ import Tree from "rc-tree";
 import React, { useContext } from "react";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { FiX } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 import { notifyError } from "utils/toast";
 import { showingTranslateValue } from "utils/translate";
 
@@ -27,6 +28,7 @@ const BulkActionDrawer = ({
   attributes,
   isCheck,
 }) => {
+  const { t } = useTranslation();
   const { toggleBulkDrawer, isBulkDrawerOpen, closeBulkDrawer } =
     useContext(SidebarContext);
 
@@ -43,7 +45,6 @@ const BulkActionDrawer = ({
     handleSubmit,
     setPublished,
     selectedCategory,
-    setSelectedCategory,
     defaultCategory,
     setDefaultCategory,
     selectCategoryName,
@@ -88,11 +89,11 @@ const BulkActionDrawer = ({
     const checkId = isCheck?.find((data) => data === key);
 
     if (isCheck?.length === data[0]?.children?.length) {
-      return notifyError("This can't be select as a parent category!");
+      return notifyError(t("CannotSelectParentCategory"));
     } else if (checkId !== undefined) {
-      return notifyError("This can't be select as a parent category!");
+      return notifyError(t("CannotSelectParentCategory"));
     } else if (key === childId) {
-      return notifyError("This can't be select as a parent category!");
+      return notifyError(t("CannotSelectParentCategory"));
     } else {
       if (key === undefined) return;
       setChecked(key);
@@ -452,13 +453,12 @@ const BulkActionDrawer = ({
                     className="h-12 bg-white w-full text-red-500 hover:bg-red-50 hover:border-red-100 hover:text-red-600 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-red-700"
                     layout="outline"
                   >
-                    Cancel
+                    {t("CancelBtn")}
                   </Button>
                 </div>
                 <div className="flex-grow-0 md:flex-grow lg:flex-grow xl:flex-grow">
                   <Button type="submit" className="w-full h-12">
-                    {" "}
-                    Bulk Update {title}
+                    {t("BulkUpdate")} {title}
                   </Button>
                 </div>
               </div>

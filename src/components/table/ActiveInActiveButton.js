@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Switch from "react-switch";
+import { useTranslation } from "react-i18next";
 
 //internal import
 
@@ -8,6 +9,7 @@ import { SidebarContext } from "context/SidebarContext";
 import { notifyError, notifySuccess } from "utils/toast";
 
 const ActiveInActiveButton = ({ id, status, option, staff }) => {
+  const { t } = useTranslation();
   const { setIsUpdate } = useContext(SidebarContext);
   const handleChangeStatus = async (id, staff) => {
     try {
@@ -33,6 +35,7 @@ const ActiveInActiveButton = ({ id, status, option, staff }) => {
       <Switch
         onChange={() => handleChangeStatus(id, staff)}
         checked={status === "Active" ? true : false}
+        aria-label={status === "Active" ? t("Active") : t("Inactive")}
         className="react-switch md:ml-0"
         uncheckedIcon={
           <div

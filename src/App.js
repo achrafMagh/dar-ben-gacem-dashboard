@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 import { ToastContainer } from "./utils/toast";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
@@ -16,17 +15,13 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <AccessibleNavigationAnnouncer />
         <Switch>
           <Route path="/login" component={Login} />
-
           <PrivateRoute path="/">
-          {/*  {" "}
-            <Route path="/" component={Layout} /> */}
-            <layout />
+            <Layout />
           </PrivateRoute>
-          {/* <Redirect exact from="/" to="/login" /> */}
         </Switch>
       </Router>
     </>

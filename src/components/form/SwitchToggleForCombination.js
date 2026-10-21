@@ -49,7 +49,7 @@ const SwitchToggleForCombination = ({
                   paddingTop: 1,
                 }}
               >
-                No
+                {t("No")}
               </div>
             }
             width={80}
@@ -70,7 +70,7 @@ const SwitchToggleForCombination = ({
                   paddingTop: 1,
                 }}
               >
-                Yes
+                {t("Yes")}
               </div>
             }
           />

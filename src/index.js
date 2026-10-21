@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "rc-tree/assets/index.css";
 import "@pathofdev/react-tag-input/build/index.css";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -12,6 +12,7 @@ import myTheme from "./assets/theme/myTheme";
 import { AdminProvider } from "./context/AdminContext";
 import { SidebarProvider } from "./context/SidebarContext";
 import ThemeSuspense from "./components/theme/ThemeSuspense";
+import ThemeSync from "./components/theme/ThemeSync";
 import { Provider } from "react-redux";
 import store from "./redux/Store";
 import "./i18n";
@@ -22,20 +23,25 @@ import "./i18n";
 //   axe(React, ReactDOM, 1000);
 // }
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Root element with id 'root' was not found.");
+}
+
+createRoot(rootElement).render(
   <AdminProvider>
     <SidebarProvider>
       <Provider store={store}>
         <Suspense fallback={<ThemeSuspense />}>
           <Windmill usePreferences theme={myTheme}>
+            <ThemeSync />
             <App />
           </Windmill>
         </Suspense>
       </Provider>
     </SidebarProvider>
-  </AdminProvider>,
-
-  document.getElementById("root")
+  </AdminProvider>
 );
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -2,21 +2,13 @@ import React, { useEffect, useState } from "react";
 import { t } from "i18next";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
-import cloudinary from "cloudinary/lib/cloudinary";
 import { FiUploadCloud, FiXCircle } from "react-icons/fi";
 
-//internal import
-import useAsync from "hooks/useAsync";
+// internal imports
 import { notifyError, notifySuccess } from "../../utils/toast";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Container from "./Container";
-
-cloudinary.config({
-  cloud_name: process.env.REACT_APP_CLOUD_NAME,
-  api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
-  api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET,
-});
 
 const Uploader = ({
   setImageUrl,
@@ -31,67 +23,34 @@ const Uploader = ({
   const [loading, setLoading] = useState(false);
   const [err, setError] = useState("");
 
-  const { getRootProps, getInputProps, fileRejections } = useDropzone({
-    accept: "image/*",
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "image/*": [] },
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
-      setImageFile(acceptedFiles[0]);
-      setImageUrl(URL.createObjectURL(acceptedFiles[0]));
+      if (!acceptedFiles.length) return;
 
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
+      const file = acceptedFiles[0];
+      setImageFile(file);
+
+      setFiles([
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        }),
+      ]);
     },
   });
 
-  /*   useEffect(() => {
-    if (fileRejections) {
-      fileRejections.map(({ file, errors }) => (
-        <li key={file.path}>
-          {file.path} - {file.size} bytes
-          <ul>
-            {errors.map((e) => (
-              <li key={e.code}>
-                {e.code === "too-many-files"
-                  ? notifyError(
-                      `Maximum ${globalSetting?.number_of_image_per_product} Image Can be Upload!`
-                    )
-                  : notifyError(e.message)}
-              </li>
-            ))}
-          </ul>
-        </li>
-      ));
-    }
+  // 🔹 Upload to Cloudinary (Unsigned – Browser Safe)
+  useEffect(() => {
+    if (!files.length) return;
 
-    if (files) {
-      files.forEach((file) => {
-        if (
-          product &&
-          imageUrl?.length + files?.length >
-            globalSetting?.number_of_image_per_product
-        ) {
-          return notifyError(
-            `Maximum ${globalSetting?.number_of_image_per_product} Image Can be Upload!`
-          );
-        }
-
+    const uploadImage = async () => {
+      try {
         setLoading(true);
-        setError("Uploading....");
+        setError(t("Uploading"));
 
-        if (product) {
-          const result = imageUrl?.find(
-            (img) => img === `${process.env.REACT_APP_CLOUDINARY_URL}`
-          );
-
-          if (result) return setLoading(false);
-        }
-
-        const name = file.name.replaceAll(/\s/g, "");
+        const file = files[0];
+        const name = file.name.replace(/\s/g, "");
         const public_id = name.substring(0, name.lastIndexOf("."));
 
         const formData = new FormData();
@@ -100,68 +59,51 @@ const Uploader = ({
           "upload_preset",
           process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
         );
-        formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
         formData.append("folder", folder);
         formData.append("public_id", public_id);
 
-        axios({
-          url: process.env.REACT_APP_CLOUDINARY_URL,
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          data: formData,
-        })
-          .then((res) => {
-            notifySuccess("Image Uploaded successfully!");
-            setLoading(false);
-            if (product) {
-              setImageUrl((imgUrl) => [...imgUrl, res.data.secure_url]);
-            } else {
-              setImageUrl(res.data.secure_url);
-            }
-          })
-          .catch((err) => {
-            console.error("err", err);
-            notifyError(err.Message);
-            setLoading(false);
-          });
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [files]); */
+        const res = await axios.post(
+          process.env.REACT_APP_CLOUDINARY_URL,
+          formData
+        );
 
-  const thumbs = files.map((file) => (
-    <div key={file.name}>
-      <div>
-        <img
-          className="inline-flex border-2 border-gray-100 w-24 max-h-24"
-          src={file.preview}
-          alt={file.name}
-        />
-      </div>
-    </div>
-  ));
+        notifySuccess("Image uploaded successfully");
 
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
+        if (product) {
+          setImageUrl((prev) => [...prev, res.data.secure_url]);
+        } else {
+          setImageUrl(res.data.secure_url);
+        }
+      } catch (error) {
+        console.error(error);
+        notifyError("Image upload failed");
+      } finally {
+        setLoading(false);
+        setError("");
+      }
+    };
+
+    uploadImage();
+  }, [files, folder, product, setImageUrl]);
+
+  // Cleanup preview URLs
+  useEffect(() => {
+    return () => {
       files.forEach((file) => URL.revokeObjectURL(file.preview));
-    },
-    [files]
-  );
+    };
+  }, [files]);
 
-  const handleRemoveImage = async (img) => {
+  const handleRemoveImage = () => {
     setImageFile("");
-    setImageUrl("");
+    setImageUrl(product ? [] : "");
     setFiles([]);
   };
 
   return (
     <div className="w-full text-center">
       <div
-        className="border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md cursor-pointer px-6 pt-5 pb-6"
         {...getRootProps()}
+        className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-md cursor-pointer px-6 pt-5 pb-6"
       >
         <input {...getInputProps()} />
         <span className="mx-auto flex justify-center">
@@ -171,7 +113,8 @@ const Uploader = ({
         <em className="text-xs text-gray-400">{t("imageFormat")}</em>
       </div>
 
-      <div className="text-green-500">{loading && err}</div>
+      {loading && <div className="text-green-500 mt-2">{err}</div>}
+
       <aside className="flex flex-row flex-wrap mt-4">
         {product ? (
           <DndProvider backend={HTML5Backend}>
@@ -181,25 +124,22 @@ const Uploader = ({
               handleRemoveImage={handleRemoveImage}
             />
           </DndProvider>
-        ) : !product && imageUrl ? (
+        ) : imageUrl ? (
           <div className="relative">
-            {" "}
             <img
-              className="inline-flex border rounded-md border-gray-100 dark:border-gray-600 w-24 max-h-24 p-2"
               src={imageUrl}
-              alt="product"
+              alt={t("UploadedImage")}
+              className="inline-flex border rounded-md border-gray-100 dark:border-gray-600 w-24 max-h-24 p-2"
             />
             <button
               type="button"
-              className="absolute top-0 right-0 text-red-500 focus:outline-none"
-              onClick={() => handleRemoveImage(imageUrl)}
+              onClick={handleRemoveImage}
+              className="absolute top-0 right-0 text-red-500"
             >
               <FiXCircle />
             </button>
           </div>
-        ) : (
-          thumbs
-        )}
+        ) : null}
       </aside>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 //internal import
@@ -24,7 +24,7 @@ const EventDetails = () => {
         <EventDrawer id={id} />
       </MainDrawer>
 
-      <PageTitle>{"Event details"}</PageTitle>
+      <PageTitle>{t("EventDetails")}</PageTitle>
 
       {loading ? (
         <Loading loading={loading} />
@@ -54,16 +54,11 @@ const EventDetails = () => {
               <div className="mb-5 block ">
                 <div className="font-serif font-semibold py-1 text-sm">
                   <p className="text-sm text-gray-500 pr-4 dark:text-gray-400">
-                    Status:{" "}
+                    {t("Status")}:{" "}
                     {data.data.isPublished ? (
-                      <span className="text-green-400">
-                        This event is published
-                      </span>
+                      <span className="text-green-400">{t("EventPublished")}</span>
                     ) : (
-                      <span className="text-red-400">
-                        {" "}
-                        This event is not published
-                      </span>
+                      <span className="text-red-400">{t("EventNotPublished")}</span>
                     )}
                   </p>
                 </div>
@@ -72,7 +67,7 @@ const EventDetails = () => {
                 </h2>
 
                 <div className="pt-10 dark:text-gray-400">
-                  <span className="font-semibold text-lg ">Start Date: </span>{" "}
+                  <span className="font-semibold text-lg ">{t("StartDate")}: </span>{" "}
                   {dayjs(data?.data?.startDate).format("MM/D/YYYY HH:mm")}
                 </div>
                 {/* <div className="pt-2">
@@ -82,7 +77,7 @@ const EventDetails = () => {
                     : `${data?.data?.numberOfDays} days`}
                 </div> */}
                 <div className="pt-2">
-                  <span className="font-semibold text-lg">Location:</span>{" "}
+                  <span className="font-semibold text-lg">{t("Locations")}:</span>{" "}
                   {data?.data?.location}
                 </div>
               </div>
@@ -92,7 +87,7 @@ const EventDetails = () => {
                   onClick={() => handleUpdate(id)}
                   className="cursor-pointer leading-5 transition-colors duration-150 font-medium text-sm focus:outline-none px-5 py-2 rounded-md text-white bg-green-500 border border-transparent active:bg-green-600 hover:bg-green-600 focus:ring focus:ring-purple-300"
                 >
-                  Edit Event
+                  {t("EditEvent")}
                 </button>
               </div>
             </div>

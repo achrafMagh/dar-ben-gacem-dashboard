@@ -1,5 +1,6 @@
 import Tooltip from 'components/tooltip/Tooltip';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
+import { useTranslation } from "react-i18next";
 //internal import
 
 
@@ -9,6 +10,7 @@ const EditDeleteButtonTwo = ({
   handleRemoveVariant,
   attribute,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <div className="flex justify-end text-right">
@@ -17,7 +19,7 @@ const EditDeleteButtonTwo = ({
             // onClick={() => handleEditVariant(variant)}
             className="p-2 cursor-pointer text-gray-400 hover:text-green-600"
           >
-            <Tooltip id="edit" Icon={FiEdit} title="Edit" bgColor="#14b8a6" />
+            <Tooltip id="edit" Icon={FiEdit} title={t("Edit")} bgColor="#14b8a6" />
           </div>
         )}
 
@@ -28,7 +30,7 @@ const EditDeleteButtonTwo = ({
           <Tooltip
             id="delete"
             Icon={FiTrash2}
-            title="Delete"
+            title={t("Delete")}
             bgColor="#EF4444"
           />
         </div>

@@ -9,6 +9,14 @@ const AdminServices = {
     return requests.post(`/admins/login`, body);
   },
 
+  getMe: async () => {
+    return requests.get("/admins/me");
+  },
+
+  updateMe: async (body) => {
+    return requests.put("/admins/me", body);
+  },
+
   forgetPassword: async (body) => {
     return requests.put("/admin/forget-password", body);
   },

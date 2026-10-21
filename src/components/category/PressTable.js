@@ -10,6 +10,7 @@ import ShowHideButton from "components/table/ShowHideButton";
 import EditDeleteButton from "components/table/EditDeleteButton";
 import Tooltip from "components/tooltip/Tooltip";
 import { FiZoomIn } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 const PressTable = ({
   data,
@@ -19,6 +20,7 @@ const PressTable = ({
   setIsCheck,
   useParamId,
 }) => {
+  const { t } = useTranslation();
   const { title, serviceId, handleModalOpen, handleUpdate, setServiceId } =
     useToggleDrawer();
 
@@ -75,7 +77,7 @@ const PressTable = ({
                   <Tooltip
                     id="view"
                     Icon={FiZoomIn}
-                    title={"View details"}
+                    title={t("ViewDetails")}
                     bgColor="#10B981"
                   />
                 </Link>
@@ -86,7 +88,7 @@ const PressTable = ({
                   handleModalOpen={() =>
                     handleModalOpen(press?._id, press?.title)
                   }
-                  title={press?.title || "press"}
+                  title={press?.title || t("Press")}
                 />
               </div>
             </TableCell>

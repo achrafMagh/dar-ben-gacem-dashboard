@@ -12,7 +12,7 @@ import {
 } from "@windmill/react-ui";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FiEdit, FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 
 //internal import
 
@@ -21,13 +21,9 @@ import { SidebarContext } from "context/SidebarContext";
 import useToggleDrawer from "hooks/useToggleDrawer";
 import useFilter from "hooks/useFilter";
 import DeleteModal from "components/modal/DeleteModal";
-import BulkActionDrawer from "components/drawer/BulkActionDrawer";
 import PageTitle from "components/Typography/PageTitle";
 import MainDrawer from "components/drawer/MainDrawer";
-import UploadManyTwo from "components/common/UploadManyTwo";
-import SwitchToggleChildCat from "components/form/SwitchToggleChildCat";
 import TableLoading from "components/preloader/TableLoading";
-import CheckBox from "components/form/CheckBox";
 import EventTable from "components/event/EventTable";
 import NotFound from "components/table/NotFound";
 import EventDrawer from "components/drawer/EventDrawer";
@@ -38,39 +34,30 @@ const Event = () => {
 
   const { data, loading } = useAsync(EventServices.getAllEvents);
 
-  const { handleDeleteMany, allId, handleUpdateMany, serviceId } =
-    useToggleDrawer();
+  const { allId, serviceId } = useToggleDrawer();
 
   const { t } = useTranslation();
 
   const {
     handleSubmitCategory,
-    categoryRef,
     totalResults,
     resultsPerPage,
     dataTable,
     serviceData,
     handleChangePage,
-    filename,
-    isDisabled,
-    handleSelectFile,
-    handleUploadMultiple,
-    handleRemoveSelectFile,
     searchRef,
   } = useFilter(data ? data.data : []);
 
   // react hooks
-  const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
-  const [showChild, setShowChild] = useState(false);
 
   return (
     <>
-      <PageTitle>{"Event"}</PageTitle>
+      <PageTitle>{t("Events")}</PageTitle>
       <DeleteModal ids={allId} setIsCheck={setIsCheck} />
 
       <MainDrawer>
-        <EventDrawer id={serviceId} data={data} lang={lang} />
+        <EventDrawer id={serviceId} data={data} />
       </MainDrawer>
 
       <Card className="min-w-0 shadow-xs overflow-hidden bg-white dark:bg-gray-800 rounded-t-lg rounded-0 mb-4">
@@ -84,7 +71,7 @@ const Event = () => {
                 ref={searchRef}
                 type="search"
                 className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 border-transparent focus:bg-white"
-                placeholder={"Search Events By Title"}
+                placeholder={t("SearchEvents")}
               />
             </div>
             <div className="w-full md:w-48 lg:w-48 xl:w-48">
@@ -93,7 +80,7 @@ const Event = () => {
                   <FiPlus />
                 </span>
 
-                {"Add Event"}
+                {t("AddEvent")}
               </Button>
             </div>
           </form>
@@ -107,15 +94,15 @@ const Event = () => {
           <Table>
             <TableHeader>
               <tr>
-                <TableCell>{"Image"}</TableCell>
-                <TableCell>{"Title"}</TableCell>
-                <TableCell>{"Start Date"}</TableCell>
+                <TableCell>{t("Image")}</TableCell>
+                <TableCell>{t("Title")}</TableCell>
+                <TableCell>{t("StartDate")}</TableCell>
                 {/*   <TableCell>{"Duration"}</TableCell> */}
                 {/* <TableCell>{"Registration End Date"}</TableCell> */}
-                <TableCell>{"Location"}</TableCell>
+                <TableCell>{t("Locations")}</TableCell>
 
-                <TableCell className="text-center">{"Published"}</TableCell>
-                <TableCell className="text-right">{"Actions"}</TableCell>
+                <TableCell className="text-center">{t("Published")}</TableCell>
+                <TableCell className="text-right">{t("Actions")}</TableCell>
               </tr>
             </TableHeader>
 
@@ -125,7 +112,7 @@ const Event = () => {
               isCheck={isCheck}
               categories={dataTable}
               setIsCheck={setIsCheck}
-              showChild={showChild}
+              showChild={false}
             />
           </Table>
 
@@ -139,7 +126,7 @@ const Event = () => {
           </TableFooter>
         </TableContainer>
       ) : (
-        <NotFound title="Sorry, There are no categories right now." />
+        <NotFound title={t("NoEventFound")} />
       )}
     </>
   );
