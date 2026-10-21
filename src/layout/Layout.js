@@ -23,13 +23,13 @@ const Layout = () => {
 
   return (
     <div
-      className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${
+      className={`flex h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-900 ${
         isSidebarOpen && "overflow-hidden"
       }`}
     >
       {navBar && <Sidebar />}
 
-      <div className="flex flex-col flex-1 w-full">
+      <div className="flex flex-col flex-1 w-full min-w-0">
         <Header />
         <Main>
           <Suspense fallback={<ThemeSuspense />}>
@@ -44,7 +44,7 @@ const Layout = () => {
                   />
                 ) : null;
               })}
-              <Redirect exact from="/" to="/press" />
+              <Redirect exact from="/" to="/overview" />
               <Route component={Page404} />
             </Switch>
           </Suspense>

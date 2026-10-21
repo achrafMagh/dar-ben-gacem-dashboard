@@ -59,10 +59,10 @@ const AttributeDrawer = ({ id }) => {
                 /> */}
                 <InputArea
                   register={register}
-                  label="Attribute Title"
+                  label={t("DrawerAttributeTitle")}
                   name="title"
                   type="text"
-                  placeholder="Color or Size or Dimension or Material or Fabric"
+                  placeholder={t("AttributeTitlePlaceholder")}
                 />
                 <Error errorName={errors.title} />
               </div>
@@ -73,10 +73,10 @@ const AttributeDrawer = ({ id }) => {
               <div className="col-span-8 sm:col-span-4">
                 <InputArea
                   register={register}
-                  label="Display Name"
+                  label={t("DisplayName")}
                   name="name"
                   type="text"
-                  placeholder="Display Name"
+                  placeholder={t("DisplayName")}
                 />
                 <Error errorName={errors.name} />
               </div>
@@ -89,7 +89,7 @@ const AttributeDrawer = ({ id }) => {
                   className="border h-12 text-sm focus:outline-none block w-full bg-gray-100 dark:bg-white border-transparent focus:bg-white"
                   name="option"
                   {...register(`option`, {
-                    required: `Option is required!`,
+                    required: t("OptionIsRequired"),
                   })}
                 >
                   <option value="" defaultValue hidden>
@@ -104,7 +104,7 @@ const AttributeDrawer = ({ id }) => {
             </div>
           </div>
 
-          <DrawerButton id={id} title="Attribute" isSubmitting={isSubmitting} />
+          <DrawerButton id={id} title={t("Attribute")} isSubmitting={isSubmitting} />
         </form>
         <div className="px-6 pt-8 flex-grow scrollbar-hide w-full max-h-full pb-40 ">
           {!id && (

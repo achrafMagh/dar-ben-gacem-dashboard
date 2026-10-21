@@ -1,13 +1,12 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const windmill = require("@windmill/react-ui/config");
 
-module.exports = windmill({
+const config = windmill({
   mode: "jit",
-  purge: [
+  content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./public/index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./**/*.{js,ts,jsx,tsx}",
     // Add more here
   ],
   theme: {
@@ -32,3 +31,14 @@ module.exports = windmill({
     },
   },
 });
+
+const windmillLegacyContent = config?.purge?.content ?? [];
+const windmillLegacyWhitelist = config?.purge?.options?.whitelist ?? [];
+
+module.exports = {
+  ...config,
+  content: [...new Set([...(config.content || []), ...windmillLegacyContent])],
+  safelist: [...new Set([...(config.safelist || []), ...windmillLegacyWhitelist])],
+};
+
+delete module.exports.purge;

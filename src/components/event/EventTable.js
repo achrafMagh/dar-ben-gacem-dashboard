@@ -2,18 +2,16 @@ import { Avatar, TableBody, TableCell, TableRow } from "@windmill/react-ui";
 import { Link } from "react-router-dom";
 
 //internal import
-import { IoRemoveSharp } from "react-icons/io5";
 import useToggleDrawer from "hooks/useToggleDrawer";
 import DeleteModal from "components/modal/DeleteModal";
 import MainDrawer from "components/drawer/MainDrawer";
 import EventDrawer from "components/drawer/EventDrawer";
-import CheckBox from "components/form/CheckBox";
 import ShowHideButton from "components/table/ShowHideButton";
 import EditDeleteButton from "components/table/EditDeleteButton";
-import { showingTranslateValue } from "utils/translate";
 import dayjs from "dayjs";
 import Tooltip from "components/tooltip/Tooltip";
 import { FiZoomIn } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 const EventTable = ({
   data,
@@ -23,6 +21,7 @@ const EventTable = ({
   setIsCheck,
   useParamId,
 }) => {
+  const { t } = useTranslation();
   const { title, serviceId, handleModalOpen, handleUpdate, setServiceId } =
     useToggleDrawer();
 
@@ -88,7 +87,7 @@ const EventTable = ({
                   <Tooltip
                     id="view"
                     Icon={FiZoomIn}
-                    title={"View details"}
+                    title={t("ViewDetails")}
                     bgColor="#10B981"
                   />
                 </Link>
@@ -102,7 +101,7 @@ const EventTable = ({
                   handleModalOpen={() =>
                     handleModalOpen(event?._id, event?.title)
                   }
-                  title={event?.title || "event"}
+                  title={event?.title || t("Events")}
                 />
               </div>
             </TableCell>

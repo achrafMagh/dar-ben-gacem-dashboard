@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { Modal, ModalBody, ModalFooter, Button } from "@windmill/react-ui";
 import { FiTrash2 } from "react-icons/fi";
@@ -11,6 +12,7 @@ import { notifySuccess, notifyError } from "utils/toast";
 import useToggleDrawer from "hooks/useToggleDrawer";
 
 const MainModal = ({ id, title }) => {
+  const { t } = useTranslation();
   const { isModalOpen, closeModal, setIsUpdate } = useContext(SidebarContext);
   const { setServiceId } = useToggleDrawer();
   const location = useLocation();
@@ -59,13 +61,9 @@ const MainModal = ({ id, title }) => {
             <FiTrash2 />
           </span>
           <h2 className="text-xl font-medium mb-1">
-            Are You Sure! Want to Delete{" "}
-            <span className="text-red-500">{title}</span> Record?
+            {t("DeleteModalH2")} <span className="text-red-500">{title}</span>?
           </h2>
-          <p>
-            Do you really want to delete these records? You can't view this in
-            your list anymore if you delete!
-          </p>
+          <p>{t("DeleteModalPtag")}</p>
         </ModalBody>
         <ModalFooter className="justify-center">
           <Button
@@ -73,10 +71,10 @@ const MainModal = ({ id, title }) => {
             layout="outline"
             onClick={closeModal}
           >
-            No, Keep It
+            {t("modalKeepBtn")}
           </Button>
           <Button onClick={handleDelete} className="w-full sm:w-auto">
-            Yes, Delete It
+            {t("modalDeletBtn")}
           </Button>
         </ModalFooter>
       </Modal>

@@ -1,46 +1,37 @@
 import React, { useContext } from "react";
 import { NavLink, Route } from "react-router-dom";
-import Cookies from "js-cookie";
-import { Button, WindmillContext } from "@windmill/react-ui";
-import { IoLogOutOutline } from "react-icons/io5";
+import { WindmillContext } from "@windmill/react-ui";
 import logoDark from "assets/img/logo/logo.svg";
 import logoLight from "assets/img/logo/logo.svg";
 
 import sidebar from "routes/sidebar";
-import { AdminContext } from "context/AdminContext";
 import SidebarSubMenu from "./SidebarSubMenu";
 // import SidebarSubMenu from "SidebarSubMenu";
 import { useTranslation } from "react-i18next";
 const SidebarContent = () => {
   const { t } = useTranslation();
   const { mode } = useContext(WindmillContext);
-  const { dispatch } = useContext(AdminContext);
-
-  const handleLogOut = () => {
-    dispatch({ type: "USER_LOGOUT" });
-    Cookies.remove("adminInfo");
-  };
 
   return (
-    <div className="py-4 text-gray-500 dark:text-gray-400">
-      <a className=" text-gray-900 dark:text-gray-200" href="/press">
+    <div className="py-5 text-gray-500 dark:text-gray-400">
+      <a className="text-gray-900 dark:text-gray-200 block px-4" href="/overview">
         {mode === "dark" ? (
           <img
             src={logoLight}
             alt="dar ben gacem"
-            width="175"
-            className="pl-6"
+            width="168"
+            className="mx-auto"
           />
         ) : (
           <img
             src={logoDark}
             alt="dar ben gacem"
-            width="220"
-            className="pl-6"
+            width="188"
+            className="mx-auto"
           />
         )}
       </a>
-      <ul className="mt-8">
+      <ul className="mt-8 px-3 space-y-1.5">
         {sidebar.map((route) =>
           route.routes ? (
             <SidebarSubMenu route={route} key={route.name} />
@@ -50,7 +41,7 @@ const SidebarContent = () => {
                 <a
                   href={process.env.REACT_APP_STORE_DOMAIN}
                   target="_blank"
-                  className="px-6 py-4 inline-flex items-center cursor-pointer w-full text-sm font-semibold transition-colors duration-150 hover:text-green-700 dark:hover:text-gray-200"
+                  className="px-4 py-3 rounded-xl inline-flex items-center cursor-pointer w-full text-sm font-semibold transition-all duration-150 hover:text-green-700 hover:bg-green-50 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                   rel="noreferrer"
                 >
                   <Route path={route.path} exact={route.exact}>
@@ -68,8 +59,8 @@ const SidebarContent = () => {
                   exact
                   to={route.path}
                   target={`${route?.outside ? "_blank" : "_self"}`}
-                  className="px-6 py-4 inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-green-700 dark:hover:text-gray-200"
-                  activeClassName="text-green-500 dark:text-gray-100"
+                  className="px-4 py-3 rounded-xl inline-flex items-center w-full text-sm font-semibold transition-all duration-150 hover:text-green-700 hover:bg-green-50 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                  activeClassName="text-green-600 bg-green-50 dark:text-gray-100 dark:bg-gray-800"
                 >
                   <Route path={route.path} exact={route.exact}>
                     <span
@@ -85,14 +76,6 @@ const SidebarContent = () => {
           )
         )}
       </ul>
-      <span className="lg:fixed bottom-0 px-6 py-6 w-64 mx-auto relative mt-3 block">
-        <Button onClick={handleLogOut} size="large" className="w-full ">
-          <span className="flex items-center">
-            <IoLogOutOutline className="mr-3 text-lg" />
-            <span className="text-sm">{t("LogOut")}</span>
-          </span>
-        </Button>
-      </span>
     </div>
   );
 };

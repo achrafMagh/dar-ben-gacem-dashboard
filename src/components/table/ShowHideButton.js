@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Switch from "react-switch";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 
 //internal import
@@ -11,17 +12,11 @@ import EventServices from "services/EventServices";
 import { notifyError, notifySuccess } from "utils/toast";
 
 const ShowHideButton = ({ id, status, press, currencyStatusName }) => {
+  const { t } = useTranslation();
   const location = useLocation();
   const { setIsUpdate } = useContext(SidebarContext);
   const handleChangeStatus = async (id) => {
     try {
-      let newStatus;
-      if (status === "show") {
-        newStatus = "hide";
-      } else {
-        newStatus = "show";
-      }
-
       if (location.pathname === "/categories" || press) {
         const res = await CategoryServices.publishPress(id, {
           isPublished: status,
@@ -55,6 +50,7 @@ const ShowHideButton = ({ id, status, press, currencyStatusName }) => {
     <Switch
       onChange={() => handleChangeStatus(id)}
       checked={status}
+      aria-label={t("Published")}
       className="react-switch md:ml-0"
       uncheckedIcon={
         <div

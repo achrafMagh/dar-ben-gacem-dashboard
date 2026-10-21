@@ -6,14 +6,12 @@ import { useLocation } from "react-router-dom";
 //internal import
 import spinnerLoadingImage from "assets/img/spinner.gif";
 import { SidebarContext } from "context/SidebarContext";
-import AdminServices from "services/AdminServices";
 import CategoryServices from "services/CategoryServices";
 
 import EventServices from "services/EventServices";
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import useToggleDrawer from "hooks/useToggleDrawer";
 
 import { notifyError, notifySuccess } from "utils/toast";
 
@@ -85,7 +83,7 @@ const DeleteModal = ({ id, ids, category, title, serviceId, setServiceId }) => {
             layout="outline"
             onClick={handleCloseModal}
           >
-            No.
+            {t("modalKeepBtn")}
           </Button>
           <div className="flex justify-end">
             {isSubmitting ? (
@@ -101,12 +99,12 @@ const DeleteModal = ({ id, ids, category, title, serviceId, setServiceId }) => {
                   height={10}
                 />{" "}
                 <span className="font-serif ml-2 font-light">
-                  Processing...
+                  {t("Processing")}
                 </span>
               </Button>
             ) : (
               <Button onClick={handleDelete} className="w-full h-12 sm:w-auto">
-                Confirm Delete
+                {t("modalDeletBtn")}
               </Button>
               // <button
               //   type="submit"

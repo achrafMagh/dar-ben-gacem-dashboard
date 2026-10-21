@@ -32,6 +32,9 @@ const useLoginSubmit = () => {
             Cookies.set("adminInfo", JSON.stringify(res), {
               expires: cookieTimeOut,
             });
+            if (res.token) {
+              localStorage.setItem("token", res.token);
+            }
             history.replace("/");
           }
         })

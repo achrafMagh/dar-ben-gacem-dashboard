@@ -1,16 +1,27 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { AdminContext } from "context/AdminContext";
+import Cookies from "js-cookie";
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const { state } = useContext(AdminContext);
-  const { adminInfo } = state;
+  const token = localStorage.getItem("token");
+  let cookieToken = null;
+
+  const adminInfo = Cookies.get("adminInfo");
+  if (adminInfo) {
+    try {
+      cookieToken = JSON.parse(adminInfo)?.token;
+    } catch (error) {
+      cookieToken = null;
+    }
+  }
+
+  const isAuthenticated = Boolean(token || cookieToken);
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        adminInfo?.email ? (
+        isAuthenticated ? (
           children
         ) : (
           <Redirect
